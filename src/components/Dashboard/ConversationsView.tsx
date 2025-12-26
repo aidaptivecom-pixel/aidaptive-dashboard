@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { MessageSquare, Mail, Instagram, Phone, Search, Filter, MoreVertical, CheckCircle2, Clock, AlertTriangle, Send } from 'lucide-react';
+import { MessageSquare, Mail, Instagram, Search, MoreVertical, CheckCircle2, Clock, Send } from 'lucide-react';
 
 type Channel = 'all' | 'whatsapp' | 'email' | 'instagram';
-type Status = 'all' | 'active' | 'pending' | 'resolved';
 
 interface Message {
   id: string;
@@ -59,44 +58,6 @@ const MOCK_MESSAGES: Message[] = [
     unread: 0,
     agent: 'AgenteVentas'
   },
-  {
-    id: '5',
-    client: { name: 'Roberto Sanchez', contact: 'roberto.sanchez@empresa.com' },
-    channel: 'email',
-    lastMessage: 'RE: Presupuesto reparacion iPhone 14 - Adjunto fotos del equipo danado',
-    time: 'Hace 2 horas',
-    status: 'pending',
-    unread: 0
-  },
-  {
-    id: '6',
-    client: { name: 'Laura Fernandez', contact: '+54 9 11 7890-1234' },
-    channel: 'whatsapp',
-    lastMessage: 'Ya pase a retirar el equipo, quedo perfecto! Muchas gracias',
-    time: 'Hace 3 horas',
-    status: 'resolved',
-    unread: 0,
-    agent: 'AgenteReparaciones'
-  },
-  {
-    id: '7',
-    client: { name: 'TechStore BA', contact: '@techstoreba' },
-    channel: 'instagram',
-    lastMessage: 'Hola! Hacen reparaciones mayoristas? Tenemos varios equipos',
-    time: 'Hace 4 horas',
-    status: 'pending',
-    unread: 1
-  },
-  {
-    id: '8',
-    client: { name: 'Pedro Gomez', contact: 'pedrogomez@hotmail.com' },
-    channel: 'email',
-    lastMessage: 'Consulta: Cuanto sale cambiar la bateria de un iPhone 12 mini?',
-    time: 'Ayer',
-    status: 'resolved',
-    unread: 0,
-    agent: 'AgenteConsultas'
-  },
 ];
 
 const ChannelIcon = ({ channel, size = 16 }: { channel: string; size?: number }) => {
@@ -140,15 +101,13 @@ const StatusBadge = ({ status }: { status: string }) => {
   }
 };
 
-export const ConversationsView = () => {
+export const DashboardConversationsView = () => {
   const [selectedChannel, setSelectedChannel] = useState<Channel>('all');
-  const [selectedStatus, setSelectedStatus] = useState<Status>('all');
   const [selectedConversation, setSelectedConversation] = useState<Message | null>(MOCK_MESSAGES[0]);
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredMessages = MOCK_MESSAGES.filter(msg => {
     if (selectedChannel !== 'all' && msg.channel !== selectedChannel) return false;
-    if (selectedStatus !== 'all' && msg.status !== selectedStatus) return false;
     if (searchQuery && !msg.client.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
     return true;
   });
@@ -162,16 +121,13 @@ export const ConversationsView = () => {
 
   return (
     <div className="flex h-[calc(100vh-120px)] gap-6">
-      {/* Conversations List */}
       <div className="w-96 bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col">
-        {/* Header */}
         <div className="p-4 border-b border-gray-100">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-semibold text-gray-900">Conversaciones</h2>
             <span className="text-xs text-gray-500">{filteredMessages.length} chats</span>
           </div>
           
-          {/* Search */}
           <div className="relative mb-4">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
             <input
@@ -183,7 +139,6 @@ export const ConversationsView = () => {
             />
           </div>
 
-          {/* Channel Tabs */}
           <div className="flex gap-1 p-1 bg-gray-50 rounded-lg">
             {[
               { key: 'all', label: 'Todos', icon: null },
@@ -208,7 +163,6 @@ export const ConversationsView = () => {
           </div>
         </div>
 
-        {/* Messages List */}
         <div className="flex-1 overflow-y-auto">
           {filteredMessages.map((msg) => (
             <div
@@ -219,7 +173,6 @@ export const ConversationsView = () => {
               }`}
             >
               <div className="flex items-start gap-3">
-                {/* Avatar */}
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-600 font-semibold text-sm flex-shrink-0">
                   {msg.client.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                 </div>
@@ -248,11 +201,9 @@ export const ConversationsView = () => {
         </div>
       </div>
 
-      {/* Conversation Detail */}
       <div className="flex-1 bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col">
         {selectedConversation ? (
           <>
-            {/* Header */}
             <div className="p-4 border-b border-gray-100 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-600 font-semibold text-sm">
@@ -279,10 +230,8 @@ export const ConversationsView = () => {
               </div>
             </div>
 
-            {/* Messages Area */}
             <div className="flex-1 p-4 overflow-y-auto bg-gray-50/50">
               <div className="space-y-4">
-                {/* Sample conversation */}
                 <div className="flex justify-start">
                   <div className="max-w-[70%] bg-white rounded-2xl rounded-tl-sm p-3 shadow-sm border border-gray-100">
                     <p className="text-sm text-gray-700">Hola! Queria consultar sobre el servicio de reparacion</p>
@@ -307,7 +256,6 @@ export const ConversationsView = () => {
               </div>
             </div>
 
-            {/* Input Area */}
             <div className="p-4 border-t border-gray-100">
               <div className="flex items-center gap-3">
                 <input
