@@ -13,7 +13,6 @@ import {
   Heart,
   MessageCircle,
   Share2,
-  Image,
   ChevronLeft,
   ChevronRight,
   Sparkles,
