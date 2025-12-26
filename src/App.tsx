@@ -8,7 +8,7 @@ import { ConversationsView } from './components/Conversations/ConversationsView'
 import { TurnosView } from './components/Turnos/TurnosView';
 import { ConversationStatus, Conversation, ChartDataPoint } from './types';
 
-const MOCK_KPI_DATA = [
+const MOCK_KPI_DATA: Array<{ label: string; value: string; delta: string; variant: 'success' | 'warning' | 'error' | 'neutral' }> = [
   { label: 'Conversaciones Hoy', value: '47', delta: '+12%', variant: 'success' },
   { label: 'Turnos Agendados', value: '18', delta: '+8%', variant: 'success' },
   { label: 'Tasa de Resolución', value: '94.2%', delta: '+2.1%', variant: 'success' },
@@ -125,7 +125,7 @@ const App: React.FC = () => {
                   label={kpi.label}
                   value={kpi.value}
                   delta={kpi.delta}
-                  deltaVariant={kpi.variant as 'success' | 'warning' | 'danger'}
+                  deltaVariant={kpi.variant}
                 />
               ))}
             </div>
