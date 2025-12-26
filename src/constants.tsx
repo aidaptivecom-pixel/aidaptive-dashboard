@@ -1,4 +1,4 @@
-import { LayoutDashboard, MessageSquare, Calendar, Wrench, ShoppingBag, Users, Settings, HelpCircle, BarChart3, Bot, Megaphone } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, Calendar, Wrench, ShoppingBag, Users, Settings, HelpCircle, BarChart3, Megaphone, Package, ShoppingCart } from 'lucide-react';
 
 export const DESIGN_TOKENS = {
   colors: {
@@ -30,15 +30,17 @@ export const NAVIGATION_ITEMS = [
     { label: 'Dashboard', icon: <LayoutDashboard size={18} />, path: '/', active: true },
     { label: 'Conversaciones', icon: <MessageSquare size={18} />, path: '/conversations' },
     { label: 'Turnos', icon: <Calendar size={18} />, path: '/appointments' },
+  ]},
+  { group: 'OPERACIONES', items: [
+    { label: 'Ventas', icon: <ShoppingCart size={18} />, path: '/sales' },
+    { label: 'Posventa', icon: <Package size={18} />, path: '/posventa' },
     { label: 'Servicio Técnico', icon: <Wrench size={18} />, path: '/repairs' },
   ]},
-  { group: 'AGENTES', items: [
-    { label: 'Agentes IA', icon: <Bot size={18} />, path: '/agents' },
-    { label: 'Marketing', icon: <Megaphone size={18} />, path: '/marketing' },
-    { label: 'Ventas', icon: <ShoppingBag size={18} />, path: '/sales' },
+  { group: 'MARKETING', items: [
+    { label: 'Contenido', icon: <Megaphone size={18} />, path: '/marketing' },
     { label: 'Analytics', icon: <BarChart3 size={18} />, path: '/analytics' },
   ]},
-  { group: 'CONFIGURACION', items: [
+  { group: 'CONFIGURACIÓN', items: [
     { label: 'Clientes', icon: <Users size={18} />, path: '/clients' },
     { label: 'Ajustes', icon: <Settings size={18} />, path: '/settings' },
   ]}

@@ -8,6 +8,8 @@ import { ConversationsView } from './components/Conversations/ConversationsView'
 import { TurnosView } from './components/Turnos/TurnosView';
 import { MarketingView } from './components/Marketing/MarketingView';
 import { ServicioTecnicoView } from './components/ServicioTecnico/ServicioTecnicoView';
+import { VentasView } from './components/Ventas/VentasView';
+import { PosventaView } from './components/Posventa/PosventaView';
 import { ConversationStatus, Conversation, ChartDataPoint } from './types';
 
 const MOCK_KPI_DATA: Array<{ label: string; value: string; delta: string; variant: 'success' | 'warning' | 'error' | 'neutral' }> = [
@@ -84,7 +86,7 @@ const MOCK_CONVERSATIONS: Conversation[] = [
   },
 ];
 
-type View = 'dashboard' | 'conversations' | 'appointments' | 'marketing' | 'repairs';
+type View = 'dashboard' | 'conversations' | 'appointments' | 'marketing' | 'repairs' | 'sales' | 'posventa';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('dashboard');
@@ -100,6 +102,10 @@ const App: React.FC = () => {
       setCurrentView('marketing');
     } else if (path === '/repairs') {
       setCurrentView('repairs');
+    } else if (path === '/sales') {
+      setCurrentView('sales');
+    } else if (path === '/posventa') {
+      setCurrentView('posventa');
     }
   };
 
@@ -172,6 +178,14 @@ const App: React.FC = () => {
 
         {currentView === 'repairs' && (
           <ServicioTecnicoView />
+        )}
+
+        {currentView === 'sales' && (
+          <VentasView />
+        )}
+
+        {currentView === 'posventa' && (
+          <PosventaView />
         )}
       </main>
     </div>
