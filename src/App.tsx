@@ -47,7 +47,7 @@ const MOCK_CONVERSATIONS: Conversation[] = [
   { 
     id: '3', 
     client: { name: 'Carlos López', phone: '+54 9 11 4567-8901' }, 
-    type: 'Reparación', 
+    type: 'Reparacion', 
     agent: 'AgenteReparaciones',
     message: 'Estado del equipo: En diagnóstico',
     time: 'Hace 8 min',
@@ -65,7 +65,7 @@ const MOCK_CONVERSATIONS: Conversation[] = [
   { 
     id: '5', 
     client: { name: 'Roberto Sánchez', phone: '+54 9 11 6789-0123' }, 
-    type: 'Derivación', 
+    type: 'Derivacion', 
     agent: 'Supervisor',
     message: 'Solicita hablar con un técnico',
     time: 'Hace 15 min',
@@ -87,7 +87,6 @@ type View = 'dashboard' | 'conversations' | 'appointments';
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('dashboard');
 
-  // Simple client-side navigation based on clicks
   const handleNavigation = (path: string) => {
     if (path === '/' || path === '/dashboard') {
       setCurrentView('dashboard');
@@ -98,7 +97,6 @@ const App: React.FC = () => {
     }
   };
 
-  // Listen for navigation clicks (simple approach)
   React.useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -127,7 +125,7 @@ const App: React.FC = () => {
                   label={kpi.label}
                   value={kpi.value}
                   delta={kpi.delta}
-                  deltaVariant={kpi.variant as any}
+                  deltaVariant={kpi.variant as 'success' | 'warning' | 'danger'}
                 />
               ))}
             </div>
