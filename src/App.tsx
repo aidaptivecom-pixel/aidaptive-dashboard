@@ -5,6 +5,7 @@ import { KPICard } from './components/Dashboard/KPICard';
 import { ChartCard } from './components/Dashboard/ChartCard';
 import { RecentActivityTable } from './components/Dashboard/RecentActivityTable';
 import { ConversationsView } from './components/Conversations/ConversationsView';
+import { TurnosView } from './components/Turnos/TurnosView';
 import { ConversationStatus, Conversation, ChartDataPoint } from './types';
 
 const MOCK_KPI_DATA = [
@@ -81,7 +82,7 @@ const MOCK_CONVERSATIONS: Conversation[] = [
   },
 ];
 
-type View = 'dashboard' | 'conversations';
+type View = 'dashboard' | 'conversations' | 'appointments';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('dashboard');
@@ -92,6 +93,8 @@ const App: React.FC = () => {
       setCurrentView('dashboard');
     } else if (path === '/conversations') {
       setCurrentView('conversations');
+    } else if (path === '/appointments') {
+      setCurrentView('appointments');
     }
   };
 
@@ -153,6 +156,10 @@ const App: React.FC = () => {
             </div>
             <ConversationsView />
           </div>
+        )}
+
+        {currentView === 'appointments' && (
+          <TurnosView />
         )}
       </main>
     </div>
