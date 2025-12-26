@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageSquare, Mail, Instagram, Phone, Clock, CheckCircle2, AlertCircle, User, Send, Paperclip, MoreVertical, Search, Filter, ChevronDown } from 'lucide-react';
+import { MessageSquare, Mail, Instagram, Clock, User, Send, Paperclip, MoreVertical, Search, Filter } from 'lucide-react';
 
 type Channel = 'all' | 'whatsapp' | 'email' | 'instagram';
 type Status = 'active' | 'pending' | 'resolved' | 'escalated';
