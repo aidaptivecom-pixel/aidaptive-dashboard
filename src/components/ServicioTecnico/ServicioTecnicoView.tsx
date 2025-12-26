@@ -14,7 +14,6 @@ import {
   Package,
   User,
   Phone,
-  Calendar,
   DollarSign,
   QrCode,
   ChevronRight,
