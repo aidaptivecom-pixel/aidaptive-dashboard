@@ -1,4 +1,4 @@
-import { LayoutDashboard, MessageSquare, Calendar, Wrench, ShoppingBag, Users, Settings, HelpCircle, BarChart3, Bot } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, Calendar, Wrench, ShoppingBag, Users, Settings, HelpCircle, BarChart3, Bot, Megaphone } from 'lucide-react';
 
 export const DESIGN_TOKENS = {
   colors: {
@@ -34,6 +34,7 @@ export const NAVIGATION_ITEMS = [
   ]},
   { group: 'AGENTES', items: [
     { label: 'Agentes IA', icon: <Bot size={18} />, path: '/agents' },
+    { label: 'Marketing', icon: <Megaphone size={18} />, path: '/marketing' },
     { label: 'Ventas', icon: <ShoppingBag size={18} />, path: '/sales' },
     { label: 'Analytics', icon: <BarChart3 size={18} />, path: '/analytics' },
   ]},
