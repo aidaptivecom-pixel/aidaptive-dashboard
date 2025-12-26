@@ -1,4 +1,3 @@
-import React from 'react';
 import { LayoutDashboard, MessageSquare, Calendar, Wrench, ShoppingBag, Users, Settings, HelpCircle, BarChart3, Bot } from 'lucide-react';
 
 export const DESIGN_TOKENS = {
