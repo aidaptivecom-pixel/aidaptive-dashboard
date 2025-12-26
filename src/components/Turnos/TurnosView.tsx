@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Clock, User, Phone, Wrench, CheckCircle2, XCircle, AlertCircle, ChevronLeft, ChevronRight, Plus, Search, Filter } from 'lucide-react';
+import { Calendar, User, Phone, Wrench, CheckCircle2, XCircle, AlertCircle, ChevronLeft, ChevronRight, Plus, Search } from 'lucide-react';
 
 type TurnoStatus = 'confirmado' | 'pendiente' | 'completado' | 'cancelado';
 
@@ -154,7 +154,7 @@ const formatDate = (dateStr: string) => {
 };
 
 export const TurnosView: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState('2024-12-27');
+  const [selectedDate] = useState('2024-12-27');
   const [viewMode, setViewMode] = useState<'day' | 'week'>('day');
   const [searchTerm, setSearchTerm] = useState('');
 
