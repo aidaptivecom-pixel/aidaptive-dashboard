@@ -142,9 +142,9 @@ const MOCK_CONVERSATIONS: ConversationData[] = [
 ];
 
 const channelIcons = {
-  whatsapp: <MessageSquare className="text-green-500" size={18} />,
-  email: <Mail className="text-blue-500" size={18} />,
-  instagram: <Instagram className="text-pink-500" size={18} />,
+  whatsapp: <MessageSquare className="text-green-500" size={16} />,
+  email: <Mail className="text-blue-500" size={16} />,
+  instagram: <Instagram className="text-pink-500" size={16} />,
 };
 
 const channelColors = {
@@ -182,7 +182,7 @@ export const ConversationsView: React.FC = () => {
   return (
     <div className="flex h-[calc(100vh-120px)] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
       {/* Lista de conversaciones */}
-      <div className="w-96 border-r border-gray-100 flex flex-col">
+      <div className="w-[420px] min-w-[320px] border-r border-gray-100 flex flex-col">
         {/* Header con filtros */}
         <div className="p-4 border-b border-gray-100">
           <div className="flex items-center gap-2 mb-4">
@@ -196,18 +196,18 @@ export const ConversationsView: React.FC = () => {
                 className="w-full bg-gray-50 border border-gray-200 rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10"
               />
             </div>
-            <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors">
+            <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors flex-shrink-0">
               <Filter size={18} className="text-gray-500" />
             </button>
           </div>
           
-          {/* Channel tabs */}
-          <div className="flex gap-1">
+          {/* Channel tabs - grid layout para evitar superposición */}
+          <div className="grid grid-cols-4 gap-1">
             {(['all', 'whatsapp', 'email', 'instagram'] as Channel[]).map((channel) => (
               <button
                 key={channel}
                 onClick={() => setSelectedChannel(channel)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                className={`flex items-center justify-center gap-1 px-2 py-2 rounded-lg text-xs font-medium transition-all ${
                   selectedChannel === channel
                     ? 'bg-gray-900 text-white'
                     : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
@@ -222,8 +222,8 @@ export const ConversationsView: React.FC = () => {
                 ) : (
                   <Instagram size={14} className={selectedChannel === channel ? 'text-white' : 'text-pink-500'} />
                 )}
-                <span className="capitalize">{channel === 'all' ? 'Todos' : channel}</span>
-                <span className={`ml-1 px-1.5 py-0.5 rounded-full text-[10px] ${
+                <span className="hidden sm:inline">{channel === 'all' ? 'Todos' : channel.charAt(0).toUpperCase() + channel.slice(1)}</span>
+                <span className={`px-1.5 py-0.5 rounded-full text-[10px] ${
                   selectedChannel === channel ? 'bg-white/20' : 'bg-gray-200'
                 }`}>
                   {channelCounts[channel]}
@@ -244,7 +244,7 @@ export const ConversationsView: React.FC = () => {
               }`}
             >
               <div className="flex items-start gap-3">
-                <div className="relative">
+                <div className="relative flex-shrink-0">
                   <div className="w-10 h-10 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center">
                     <User size={18} className="text-gray-500" />
                   </div>
@@ -255,7 +255,7 @@ export const ConversationsView: React.FC = () => {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1">
                     <span className="font-semibold text-sm text-gray-900 truncate">{conv.client.name}</span>
-                    <span className="text-[10px] text-gray-400 whitespace-nowrap ml-2">{conv.time}</span>
+                    <span className="text-[10px] text-gray-400 whitespace-nowrap ml-2 flex-shrink-0">{conv.time}</span>
                   </div>
                   <p className="text-xs text-gray-500 truncate mb-2">{conv.lastMessage}</p>
                   <div className="flex items-center justify-between">
@@ -264,7 +264,7 @@ export const ConversationsView: React.FC = () => {
                       {statusConfig[conv.status].label}
                     </span>
                     {conv.unread > 0 && (
-                      <span className="w-5 h-5 bg-gray-900 text-white rounded-full text-[10px] flex items-center justify-center font-bold">
+                      <span className="w-5 h-5 bg-gray-900 text-white rounded-full text-[10px] flex items-center justify-center font-bold flex-shrink-0">
                         {conv.unread}
                       </span>
                     )}
@@ -278,11 +278,11 @@ export const ConversationsView: React.FC = () => {
 
       {/* Panel de conversación */}
       {selectedConversation ? (
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col min-w-0">
           {/* Header */}
-          <div className="p-4 border-b border-gray-100 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="relative">
+          <div className="p-4 border-b border-gray-100 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="relative flex-shrink-0">
                 <div className="w-10 h-10 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center">
                   <User size={18} className="text-gray-500" />
                 </div>
@@ -290,17 +290,17 @@ export const ConversationsView: React.FC = () => {
                   {channelIcons[selectedConversation.channel]}
                 </div>
               </div>
-              <div>
-                <h3 className="font-semibold text-gray-900">{selectedConversation.client.name}</h3>
-                <p className="text-xs text-gray-500">
+              <div className="min-w-0">
+                <h3 className="font-semibold text-gray-900 truncate">{selectedConversation.client.name}</h3>
+                <p className="text-xs text-gray-500 truncate">
                   {selectedConversation.client.phone || selectedConversation.client.email || selectedConversation.client.instagram}
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-shrink-0">
               <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border ${channelColors[selectedConversation.channel]}`}>
                 {channelIcons[selectedConversation.channel]}
-                <span className="capitalize">{selectedConversation.channel}</span>
+                <span className="capitalize hidden sm:inline">{selectedConversation.channel}</span>
               </span>
               <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${statusConfig[selectedConversation.status].bgColor} ${statusConfig[selectedConversation.status].textColor}`}>
                 <span className={`w-2 h-2 rounded-full ${statusConfig[selectedConversation.status].color}`}></span>
@@ -359,15 +359,15 @@ export const ConversationsView: React.FC = () => {
           {/* Input */}
           <div className="p-4 border-t border-gray-100 bg-white">
             <div className="flex items-center gap-3">
-              <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors">
+              <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors flex-shrink-0">
                 <Paperclip size={20} className="text-gray-400" />
               </button>
               <input
                 type="text"
                 placeholder="Escribe un mensaje..."
-                className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+                className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10 min-w-0"
               />
-              <button className="p-3 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-colors">
+              <button className="p-3 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-colors flex-shrink-0">
                 <Send size={18} />
               </button>
             </div>
