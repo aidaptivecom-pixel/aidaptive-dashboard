@@ -8,7 +8,6 @@ import {
   TrendingUp,
   Clock,
   CheckCircle2,
-  AlertCircle,
   XCircle,
   User,
   Phone,
@@ -21,7 +20,6 @@ import {
   Copy,
   ExternalLink,
   MoreVertical,
-  Tag,
   Percent,
   FileText
 } from 'lucide-react';
