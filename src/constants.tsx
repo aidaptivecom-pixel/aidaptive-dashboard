@@ -30,7 +30,7 @@ export const NAVIGATION_ITEMS = [
     { label: 'Dashboard', icon: <LayoutDashboard size={18} />, path: '/', active: true },
     { label: 'Conversaciones', icon: <MessageSquare size={18} />, path: '/conversations' },
     { label: 'Turnos', icon: <Calendar size={18} />, path: '/appointments' },
-    { label: 'Reparaciones', icon: <Wrench size={18} />, path: '/repairs' },
+    { label: 'Servicio Técnico', icon: <Wrench size={18} />, path: '/repairs' },
   ]},
   { group: 'AGENTES', items: [
     { label: 'Agentes IA', icon: <Bot size={18} />, path: '/agents' },

@@ -7,6 +7,7 @@ import { RecentActivityTable } from './components/Dashboard/RecentActivityTable'
 import { ConversationsView } from './components/Conversations/ConversationsView';
 import { TurnosView } from './components/Turnos/TurnosView';
 import { MarketingView } from './components/Marketing/MarketingView';
+import { ServicioTecnicoView } from './components/ServicioTecnico/ServicioTecnicoView';
 import { ConversationStatus, Conversation, ChartDataPoint } from './types';
 
 const MOCK_KPI_DATA: Array<{ label: string; value: string; delta: string; variant: 'success' | 'warning' | 'error' | 'neutral' }> = [
@@ -83,7 +84,7 @@ const MOCK_CONVERSATIONS: Conversation[] = [
   },
 ];
 
-type View = 'dashboard' | 'conversations' | 'appointments' | 'marketing';
+type View = 'dashboard' | 'conversations' | 'appointments' | 'marketing' | 'repairs';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('dashboard');
@@ -97,6 +98,8 @@ const App: React.FC = () => {
       setCurrentView('appointments');
     } else if (path === '/marketing') {
       setCurrentView('marketing');
+    } else if (path === '/repairs') {
+      setCurrentView('repairs');
     }
   };
 
@@ -165,6 +168,10 @@ const App: React.FC = () => {
 
         {currentView === 'marketing' && (
           <MarketingView />
+        )}
+
+        {currentView === 'repairs' && (
+          <ServicioTecnicoView />
         )}
       </main>
     </div>
