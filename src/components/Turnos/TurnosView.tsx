@@ -203,8 +203,6 @@ const serviceConfig: Record<ServiceType, { label: string; icon: React.ElementTyp
   retiro: { label: 'Retiro', icon: Laptop, color: 'text-gray-600' },
 };
 
-const HORARIOS = ['09:00', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00'];
-
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr + 'T00:00:00');
   const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -221,7 +219,7 @@ export const TurnosView: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState('2024-12-27');
   const [selectedTurno, setSelectedTurno] = useState<Turno | null>(MOCK_TURNOS[0]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterStatus, setFilterStatus] = useState<TurnoStatus | 'all'>('all');
+  const [filterStatus] = useState<TurnoStatus | 'all'>('all');
 
   const turnosDelDia = MOCK_TURNOS.filter(t => t.date === selectedDate);
   const turnosFiltrados = turnosDelDia.filter(t => {

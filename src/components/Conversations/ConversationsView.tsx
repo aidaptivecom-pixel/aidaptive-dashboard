@@ -232,7 +232,7 @@ export const ConversationsView: React.FC = () => {
   const [selectedChannel, setSelectedChannel] = useState<Channel>('all');
   const [selectedConversation, setSelectedConversation] = useState<ConversationData | null>(MOCK_CONVERSATIONS[0]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterStatus, setFilterStatus] = useState<Status | 'all'>('all');
+  const [filterStatus] = useState<Status | 'all'>('all');
 
   const filteredConversations = MOCK_CONVERSATIONS.filter(conv => {
     const matchesChannel = selectedChannel === 'all' || conv.channel === selectedChannel;
