@@ -15,7 +15,7 @@ export const Sidebar = ({ currentPath }: SidebarProps) => {
   };
 
   return (
-    <aside className="w-64 border-r border-gray-100 bg-white h-screen fixed left-0 top-0 flex flex-col z-20">
+    <aside className="w-64 border-r border-gray-100 bg-white flex flex-col">
       {/* Brand - InfoPartes */}
       <div className="p-6">
         <div className="flex items-center gap-3">
