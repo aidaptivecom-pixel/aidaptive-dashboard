@@ -1,4 +1,4 @@
-import { LayoutDashboard, MessageSquare, Calendar, Wrench, Users, Settings, HelpCircle, BarChart3, Megaphone, Package, ShoppingCart } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, Calendar, Wrench, Users, Settings, HelpCircle, BarChart3, Megaphone, Package, ShoppingCart, ClipboardList, Boxes, FileText, Truck } from 'lucide-react';
 
 export const DESIGN_TOKENS = {
   colors: {
@@ -28,13 +28,18 @@ export const DESIGN_TOKENS = {
 export const NAVIGATION_ITEMS = [
   { group: 'PRINCIPAL', items: [
     { label: 'Dashboard', icon: <LayoutDashboard size={18} />, path: '/' },
-    { label: 'Conversaciones', icon: <MessageSquare size={18} />, path: '/conversations' },
-    { label: 'Turnos', icon: <Calendar size={18} />, path: '/appointments' },
+    { label: 'Pedidos', icon: <ClipboardList size={18} />, path: '/orders' },
+    { label: 'Inventario', icon: <Boxes size={18} />, path: '/inventory' },
   ]},
   { group: 'OPERACIONES', items: [
     { label: 'Ventas', icon: <ShoppingCart size={18} />, path: '/sales' },
-    { label: 'Posventa', icon: <Package size={18} />, path: '/posventa' },
+    { label: 'Cotizaciones', icon: <FileText size={18} />, path: '/quotes' },
     { label: 'Servicio Técnico', icon: <Wrench size={18} />, path: '/repairs' },
+    { label: 'Turnos', icon: <Calendar size={18} />, path: '/appointments' },
+  ]},
+  { group: 'ATENCIÓN', items: [
+    { label: 'Conversaciones', icon: <MessageSquare size={18} />, path: '/conversations' },
+    { label: 'Posventa', icon: <Truck size={18} />, path: '/posventa' },
   ]},
   { group: 'MARKETING', items: [
     { label: 'Contenido', icon: <Megaphone size={18} />, path: '/marketing' },
