@@ -156,7 +156,7 @@ const App: React.FC = () => {
           <main className="flex-1 bg-[#F9FAFB] flex flex-col overflow-hidden">
             {/* Page Title Row - only show if view doesn't have its own header */}
             {showPageTitle && (
-              <div className="px-8 py-6 bg-[#F9FAFB]">
+              <div className="px-8 pt-6 bg-[#F9FAFB]">
                 <div className="flex items-center justify-between">
                   <h1 className="text-2xl font-bold text-gray-900">{viewTitles[currentView]}</h1>
                   <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
@@ -170,7 +170,7 @@ const App: React.FC = () => {
             )}
             
             {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto px-8 pb-8">
+            <div className="flex-1 overflow-y-auto px-8 pt-6 pb-8">
               {currentView === 'dashboard' && (
                 <div className="space-y-6">
                   {/* KPIs Row */}
