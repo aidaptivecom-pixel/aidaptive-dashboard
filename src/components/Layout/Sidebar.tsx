@@ -41,7 +41,7 @@ export const Sidebar = ({ currentPath, headerOnly, navOnly }: SidebarProps) => {
         <nav className="flex-1 px-4 py-6 space-y-6 overflow-y-auto">
           {NAVIGATION_ITEMS.map((group) => (
             <div key={group.group}>
-              <p className="px-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">{group.group}</p>
+              <p className="px-2 text-[11px] font-semibold text-gray-400 uppercase tracking-widest mb-3">{group.group}</p>
               <ul className="space-y-1">
                 {group.items.map((item) => {
                   const active = isActive(item.path);
@@ -49,7 +49,7 @@ export const Sidebar = ({ currentPath, headerOnly, navOnly }: SidebarProps) => {
                     <li key={item.label}>
                       <a 
                         href={item.path}
-                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-[15px] font-medium transition-all ${
                           active 
                             ? 'bg-gray-900 text-white shadow-sm' 
                             : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
@@ -73,7 +73,7 @@ export const Sidebar = ({ currentPath, headerOnly, navOnly }: SidebarProps) => {
           <ul className="space-y-1">
             {BOTTOM_NAV.map((item) => (
               <li key={item.label}>
-                <a href={item.path} className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                <a href={item.path} className="flex items-center gap-3 px-3 py-2 rounded-lg text-[15px] font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-colors">
                   <span className="text-gray-400">{item.icon}</span>
                   {item.label}
                 </a>
