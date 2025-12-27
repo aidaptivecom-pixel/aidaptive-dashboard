@@ -137,7 +137,7 @@ const App: React.FC = () => {
   );
 
   // Check if current view has its own title header (to avoid duplicate)
-  const viewsWithOwnHeader = ['inventory'];
+  const viewsWithOwnHeader = ['inventory', 'sales', 'orders'];
   const showPageTitle = !viewsWithOwnHeader.includes(currentView);
 
   return (
