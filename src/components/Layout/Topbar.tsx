@@ -22,7 +22,7 @@ export const Topbar: React.FC<TopbarProps> = ({ currentView = 'Dashboard' }) => 
   return (
     <div className="space-y-6">
       {/* Top Bar - Breadcrumb + Search + Icons */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pb-4 border-b border-gray-200">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm">
           <span className="text-gray-400">Panel de Control</span>
@@ -69,7 +69,7 @@ export const Topbar: React.FC<TopbarProps> = ({ currentView = 'Dashboard' }) => 
       </div>
 
       {/* Title Row - Page Title + Action Button */}
-      <div className="flex items-center justify-between pb-6 border-b border-gray-200">
+      <div className="flex items-center justify-between pb-6">
         <h1 className="text-2xl font-bold text-gray-900">{displayName}</h1>
         <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
           <FileText size={16} />
