@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { 
   Search, 
-  Filter, 
   Package, 
   Truck, 
   CreditCard, 
@@ -10,7 +9,6 @@ import {
   XCircle,
   AlertCircle,
   ExternalLink,
-  ChevronRight,
   MapPin,
   Phone,
   Mail,
