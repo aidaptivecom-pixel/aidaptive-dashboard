@@ -134,77 +134,114 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#E5E7EB] p-4">
-      <div className="flex h-[calc(100vh-32px)] rounded-3xl overflow-hidden shadow-xl">
-        <Sidebar currentPath={viewToPath[currentView]} />
-        <main className="flex-1 bg-[#F9FAFB] flex flex-col overflow-hidden">
-          {/* Fixed Topbar */}
-          <div className="px-8 pt-6">
+      <div className="flex flex-col h-[calc(100vh-32px)] rounded-3xl overflow-hidden shadow-xl bg-white">
+        {/* Top Header Bar - spans full width */}
+        <div className="flex items-center border-b border-gray-200 bg-white">
+          {/* Sidebar Header */}
+          <div className="w-64 px-6 py-4 flex-shrink-0">
+            <Sidebar currentPath={viewToPath[currentView]} headerOnly />
+          </div>
+          {/* Main Header */}
+          <div className="flex-1 px-8 py-4">
             <Topbar currentView={currentView} />
           </div>
-          
-          {/* Scrollable Content */}
-          <div className="flex-1 overflow-y-auto px-8 pb-8">
-            {currentView === 'dashboard' && (
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {MOCK_KPI_DATA.map((kpi) => (
-                    <KPICard 
-                      key={kpi.label}
-                      label={kpi.label}
-                      value={kpi.value}
-                      delta={kpi.delta}
-                      deltaVariant={kpi.variant}
-                    />
-                  ))}
-                </div>
-                <ChartCard 
-                  data={MOCK_CHART_DATA}
-                  title="Conversaciones de la Semana"
-                  subtitle="Total de mensajes vs. resueltos automáticamente"
-                />
-                <RecentActivityTable conversations={MOCK_CONVERSATIONS} />
-              </div>
-            )}
-
-            {currentView === 'conversations' && (
-              <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Centro de Conversaciones</h1>
-                    <p className="text-sm text-gray-500">Gestiona todas las conversaciones desde un solo lugar</p>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 text-green-700 rounded-full">
-                      <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                      Bot IA Activo
-                    </span>
-                  </div>
-                </div>
-                <ConversationsView />
-              </div>
-            )}
-
-            {currentView === 'appointments' && (
-              <TurnosView />
-            )}
-
-            {currentView === 'marketing' && (
-              <MarketingView />
-            )}
-
-            {currentView === 'repairs' && (
-              <ServicioTecnicoView />
-            )}
-
-            {currentView === 'sales' && (
-              <VentasView />
-            )}
-
-            {currentView === 'posventa' && (
-              <PosventaView />
-            )}
+        </div>
+        
+        {/* Main Content Area */}
+        <div className="flex flex-1 overflow-hidden">
+          {/* Sidebar Navigation */}
+          <div className="w-64 flex-shrink-0 border-r border-gray-100 bg-white">
+            <Sidebar currentPath={viewToPath[currentView]} navOnly />
           </div>
-        </main>
+          
+          {/* Main Content */}
+          <main className="flex-1 bg-[#F9FAFB] flex flex-col overflow-hidden">
+            {/* Page Title Row */}
+            <div className="px-8 py-6 bg-[#F9FAFB]">
+              <div className="flex items-center justify-between">
+                <h1 className="text-2xl font-bold text-gray-900">
+                  {{
+                    dashboard: 'Dashboard',
+                    conversations: 'Conversaciones',
+                    appointments: 'Turnos',
+                    sales: 'Ventas',
+                    posventa: 'Posventa',
+                    repairs: 'Servicio Técnico',
+                    marketing: 'Marketing',
+                  }[currentView]}
+                </h1>
+                <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Crear Reporte
+                </button>
+              </div>
+            </div>
+            
+            {/* Scrollable Content */}
+            <div className="flex-1 overflow-y-auto px-8 pb-8">
+              {currentView === 'dashboard' && (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {MOCK_KPI_DATA.map((kpi) => (
+                      <KPICard 
+                        key={kpi.label}
+                        label={kpi.label}
+                        value={kpi.value}
+                        delta={kpi.delta}
+                        deltaVariant={kpi.variant}
+                      />
+                    ))}
+                  </div>
+                  <ChartCard 
+                    data={MOCK_CHART_DATA}
+                    title="Conversaciones de la Semana"
+                    subtitle="Total de mensajes vs. resueltos automáticamente"
+                  />
+                  <RecentActivityTable conversations={MOCK_CONVERSATIONS} />
+                </div>
+              )}
+
+              {currentView === 'conversations' && (
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-gray-500">Gestiona todas las conversaciones desde un solo lugar</p>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <span className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 text-green-700 rounded-full">
+                        <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        Bot IA Activo
+                      </span>
+                    </div>
+                  </div>
+                  <ConversationsView />
+                </div>
+              )}
+
+              {currentView === 'appointments' && (
+                <TurnosView />
+              )}
+
+              {currentView === 'marketing' && (
+                <MarketingView />
+              )}
+
+              {currentView === 'repairs' && (
+                <ServicioTecnicoView />
+              )}
+
+              {currentView === 'sales' && (
+                <VentasView />
+              )}
+
+              {currentView === 'posventa' && (
+                <PosventaView />
+              )}
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );
