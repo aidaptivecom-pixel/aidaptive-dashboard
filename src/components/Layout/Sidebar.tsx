@@ -1,5 +1,5 @@
 import { NAVIGATION_ITEMS, BOTTOM_NAV } from '../../constants';
-import { Search, Apple } from 'lucide-react';
+import { Apple } from 'lucide-react';
 
 interface SidebarProps {
   currentPath: string;
@@ -26,18 +26,6 @@ export const Sidebar = ({ currentPath }: SidebarProps) => {
             <span className="font-bold text-lg text-gray-900 tracking-tight block">InfoPartes</span>
             <span className="text-[10px] text-gray-400 uppercase tracking-wider">Servicio Tecnico</span>
           </div>
-        </div>
-      </div>
-
-      {/* Search */}
-      <div className="px-6 mb-6">
-        <div className="relative group">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
-          <input 
-            type="text" 
-            placeholder="Buscar cliente o ticket..." 
-            className="w-full bg-gray-50 border border-gray-100 rounded-lg pl-9 pr-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-gray-900/10 transition-all"
-          />
         </div>
       </div>
 

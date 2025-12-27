@@ -136,68 +136,74 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-[#E5E7EB] p-4">
       <div className="flex h-[calc(100vh-32px)] rounded-3xl overflow-hidden shadow-xl">
         <Sidebar currentPath={viewToPath[currentView]} />
-        <main className="flex-1 bg-[#F9FAFB] p-8 overflow-y-auto">
-          <Topbar />
+        <main className="flex-1 bg-[#F9FAFB] flex flex-col overflow-hidden">
+          {/* Fixed Topbar */}
+          <div className="px-8 pt-6">
+            <Topbar currentView={currentView} />
+          </div>
           
-          {currentView === 'dashboard' && (
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {MOCK_KPI_DATA.map((kpi) => (
-                  <KPICard 
-                    key={kpi.label}
-                    label={kpi.label}
-                    value={kpi.value}
-                    delta={kpi.delta}
-                    deltaVariant={kpi.variant}
-                  />
-                ))}
-              </div>
-              <ChartCard 
-                data={MOCK_CHART_DATA}
-                title="Conversaciones de la Semana"
-                subtitle="Total de mensajes vs. resueltos automáticamente"
-              />
-              <RecentActivityTable conversations={MOCK_CONVERSATIONS} />
-            </div>
-          )}
-
-          {currentView === 'conversations' && (
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h1 className="text-2xl font-bold text-gray-900">Centro de Conversaciones</h1>
-                  <p className="text-sm text-gray-500">Gestiona todas las conversaciones desde un solo lugar</p>
+          {/* Scrollable Content */}
+          <div className="flex-1 overflow-y-auto px-8 pb-8">
+            {currentView === 'dashboard' && (
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {MOCK_KPI_DATA.map((kpi) => (
+                    <KPICard 
+                      key={kpi.label}
+                      label={kpi.label}
+                      value={kpi.value}
+                      delta={kpi.delta}
+                      deltaVariant={kpi.variant}
+                    />
+                  ))}
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <span className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 text-green-700 rounded-full">
-                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                    Bot IA Activo
-                  </span>
-                </div>
+                <ChartCard 
+                  data={MOCK_CHART_DATA}
+                  title="Conversaciones de la Semana"
+                  subtitle="Total de mensajes vs. resueltos automáticamente"
+                />
+                <RecentActivityTable conversations={MOCK_CONVERSATIONS} />
               </div>
-              <ConversationsView />
-            </div>
-          )}
+            )}
 
-          {currentView === 'appointments' && (
-            <TurnosView />
-          )}
+            {currentView === 'conversations' && (
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h1 className="text-2xl font-bold text-gray-900">Centro de Conversaciones</h1>
+                    <p className="text-sm text-gray-500">Gestiona todas las conversaciones desde un solo lugar</p>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 text-green-700 rounded-full">
+                      <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                      Bot IA Activo
+                    </span>
+                  </div>
+                </div>
+                <ConversationsView />
+              </div>
+            )}
 
-          {currentView === 'marketing' && (
-            <MarketingView />
-          )}
+            {currentView === 'appointments' && (
+              <TurnosView />
+            )}
 
-          {currentView === 'repairs' && (
-            <ServicioTecnicoView />
-          )}
+            {currentView === 'marketing' && (
+              <MarketingView />
+            )}
 
-          {currentView === 'sales' && (
-            <VentasView />
-          )}
+            {currentView === 'repairs' && (
+              <ServicioTecnicoView />
+            )}
 
-          {currentView === 'posventa' && (
-            <PosventaView />
-          )}
+            {currentView === 'sales' && (
+              <VentasView />
+            )}
+
+            {currentView === 'posventa' && (
+              <PosventaView />
+            )}
+          </div>
         </main>
       </div>
     </div>
