@@ -10,6 +10,7 @@ import { ResolutionsTable } from './components/Dashboard/ResolutionsTable';
 import { ConversationsView } from './components/Conversations/ConversationsView';
 import { TurnosView } from './components/Turnos/TurnosView';
 import { MarketingView } from './components/Marketing/MarketingView';
+import { AnalyticsView } from './components/Analytics/AnalyticsView';
 import { ServicioTecnicoView } from './components/ServicioTecnico/ServicioTecnicoView';
 import { VentasView } from './components/Ventas/VentasView';
 import { PosventaView } from './components/Posventa/PosventaView';
@@ -58,7 +59,7 @@ const MOCK_INVENTORY_ALERTS = [
   { id: '2', product: 'Fuente Corsair 700W', sku: 'PSU-COR-700', stock: 0, minStock: 3 },
   { id: '3', product: 'RAM DDR5 16GB Kingston', sku: 'RAM-DDR5-16K', stock: 3, minStock: 10 },
   { id: '4', product: 'SSD NVMe 1TB Samsung', sku: 'SSD-SAM-1TB', stock: 4, minStock: 8 },
-  { id: '5', product: 'Monitor LG 27" 144Hz', sku: 'MON-LG27-144', stock: 1, minStock: 3 },
+  { id: '5', product: 'Monitor LG 27\" 144Hz', sku: 'MON-LG27-144', stock: 1, minStock: 3 },
 ];
 
 const MOCK_RESOLUTIONS = [
@@ -138,7 +139,7 @@ const App: React.FC = () => {
   );
 
   // Check if current view has its own title header (to avoid duplicate)
-  const viewsWithOwnHeader = ['inventory', 'sales', 'orders', 'quotes', 'repairs', 'appointments', 'conversations', 'posventa', 'marketing'];
+  const viewsWithOwnHeader = ['inventory', 'sales', 'orders', 'quotes', 'repairs', 'appointments', 'conversations', 'posventa', 'marketing', 'analytics'];
   const showPageTitle = !viewsWithOwnHeader.includes(currentView);
 
   return (
@@ -216,12 +217,12 @@ const App: React.FC = () => {
               {currentView === 'conversations' && <ConversationsView />}
               {currentView === 'appointments' && <TurnosView />}
               {currentView === 'marketing' && <MarketingView />}
+              {currentView === 'analytics' && <AnalyticsView />}
               {currentView === 'repairs' && <ServicioTecnicoView />}
               {currentView === 'sales' && <VentasView />}
               {currentView === 'posventa' && <PosventaView />}
               
               {/* Placeholder views */}
-              {currentView === 'analytics' && <PlaceholderView title="Analytics" />}
               {currentView === 'clients' && <PlaceholderView title="Clientes" />}
               {currentView === 'settings' && <PlaceholderView title="Ajustes" />}
             </div>
