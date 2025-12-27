@@ -1,4 +1,4 @@
-import { LayoutDashboard, MessageSquare, Calendar, Wrench, Users, Settings, HelpCircle, BarChart3, Megaphone, Package, ShoppingCart, ClipboardList, Boxes, FileText, Truck } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, Calendar, Wrench, Users, Settings, HelpCircle, BarChart3, Megaphone, ShoppingCart, ClipboardList, Boxes, FileText, Truck } from 'lucide-react';
 
 export const DESIGN_TOKENS = {
   colors: {
