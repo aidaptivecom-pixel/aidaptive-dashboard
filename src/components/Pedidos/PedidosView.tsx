@@ -13,7 +13,9 @@ import {
   Phone,
   Mail,
   Copy,
-  MoreVertical
+  MoreVertical,
+  FileText,
+  RefreshCw
 } from 'lucide-react';
 
 // Types based on Tiendanube API
@@ -247,6 +249,24 @@ export const PedidosView: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Pedidos</h1>
+          <p className="text-gray-500 text-sm mt-1">Gestión de pedidos Tiendanube</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
+            <RefreshCw size={16} />
+            Sincronizar
+          </button>
+          <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
+            <FileText size={16} />
+            Crear Reporte
+          </button>
+        </div>
+      </div>
+
       {/* Stats Cards */}
       <div className="grid grid-cols-4 gap-4">
         <button 
