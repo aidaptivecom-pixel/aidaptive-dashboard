@@ -18,7 +18,6 @@ import {
   Sparkles,
   Play,
   MoreVertical,
-  Image,
   Loader2,
   Wand2,
   Trash2,
@@ -28,7 +27,6 @@ import {
   Gamepad2,
   FileText,
   Film,
-  Type,
   Save,
   Upload
 } from 'lucide-react';
