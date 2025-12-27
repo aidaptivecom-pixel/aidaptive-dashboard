@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { 
   Search, 
   Filter,
-  Smartphone,
+  Monitor,
   Laptop,
-  Tablet,
-  Watch,
-  Headphones,
+  Cpu,
+  HardDrive,
+  Printer,
   Clock,
   CheckCircle2,
   AlertCircle,
@@ -25,7 +25,7 @@ import {
 
 type RepairStatus = 'diagnostico' | 'presupuestado' | 'en_reparacion' | 'listo' | 'entregado' | 'cancelado';
 type PaymentStatus = 'pendiente' | 'seña' | 'pagado';
-type DeviceType = 'iphone' | 'macbook' | 'ipad' | 'watch' | 'airpods';
+type DeviceType = 'pc' | 'notebook' | 'monitor' | 'componente' | 'impresora';
 
 interface Repair {
   id: string;
@@ -64,38 +64,38 @@ const MOCK_REPAIRS: Repair[] = [
     id: '1',
     ticketId: 'REP-2024-0847',
     client: { name: 'Juan Pérez', phone: '+54 9 11 2345-6789', email: 'juan@email.com' },
-    device: { type: 'iphone', model: 'iPhone 14 Pro', serial: 'DNPXK2XXXXX', password: '1234' },
-    issue: 'Pantalla rota - caída accidental',
-    diagnosis: 'Display OLED dañado, touch funcional. Requiere reemplazo completo de módulo.',
+    device: { type: 'notebook', model: 'Lenovo ThinkPad T14', serial: 'PF3XXXXX', password: '1234' },
+    issue: 'No enciende - posible problema de mother',
+    diagnosis: 'Capacitor dañado en VRM. Requiere reballing y reemplazo de componentes SMD.',
     status: 'en_reparacion',
     paymentStatus: 'seña',
-    budget: 185000,
+    budget: 95000,
     createdAt: '2024-12-23T10:30:00',
     updatedAt: '2024-12-26T14:00:00',
     estimatedDate: '2024-12-27',
-    technician: 'Matías',
+    technician: 'Carlos',
     timeline: [
       { status: 'Ingresado', date: '2024-12-23T10:30:00' },
       { status: 'En diagnóstico', date: '2024-12-23T11:00:00' },
       { status: 'Presupuesto enviado', date: '2024-12-23T14:00:00', note: 'Cliente aprobó por WhatsApp' },
-      { status: 'Seña recibida', date: '2024-12-24T09:00:00', note: '$50.000 MercadoPago' },
-      { status: 'En reparación', date: '2024-12-26T10:00:00', note: 'Repuesto en stock' },
+      { status: 'Seña recibida', date: '2024-12-24T09:00:00', note: '$30.000 MercadoPago' },
+      { status: 'En reparación', date: '2024-12-26T10:00:00', note: 'Componentes en stock' },
     ]
   },
   {
     id: '2',
     ticketId: 'REP-2024-0846',
     client: { name: 'María García', phone: '+54 9 11 3456-7890' },
-    device: { type: 'macbook', model: 'MacBook Pro 14" M1', serial: 'C02XXXXXXXXX' },
-    issue: 'No enciende - posible problema de batería',
-    diagnosis: 'Batería agotada (0 ciclos restantes). Placa en buen estado.',
+    device: { type: 'pc', model: 'PC Armada Gamer - Ryzen 5 5600X / RTX 3060', serial: 'CUSTOM-2024-156' },
+    issue: 'Pantallazos azules frecuentes - BSOD',
+    diagnosis: 'RAM defectuosa (1 módulo). Test MemTest86 con errores. Resto del sistema OK.',
     status: 'listo',
     paymentStatus: 'pendiente',
-    budget: 120000,
-    finalCost: 120000,
+    budget: 15000,
+    finalCost: 15000,
     createdAt: '2024-12-22T15:00:00',
     updatedAt: '2024-12-26T12:00:00',
-    technician: 'Matías',
+    technician: 'Carlos',
     timeline: [
       { status: 'Ingresado', date: '2024-12-22T15:00:00' },
       { status: 'En diagnóstico', date: '2024-12-22T16:00:00' },
@@ -108,14 +108,14 @@ const MOCK_REPAIRS: Repair[] = [
     id: '3',
     ticketId: 'REP-2024-0845',
     client: { name: 'Carlos López', phone: '+54 9 11 4567-8901' },
-    device: { type: 'iphone', model: 'iPhone 13', serial: 'FNPXXXXXXXX', password: '0000' },
-    issue: 'Batería dura muy poco',
+    device: { type: 'notebook', model: 'ASUS ROG Strix G15', serial: 'M3NXXXXXXXX', password: '0000' },
+    issue: 'Sobrecalentamiento y throttling en juegos',
     status: 'diagnostico',
     paymentStatus: 'pendiente',
     createdAt: '2024-12-26T09:00:00',
     updatedAt: '2024-12-26T09:00:00',
     timeline: [
-      { status: 'Ingresado', date: '2024-12-26T09:00:00', note: 'Turno agendado por WhatsApp Bot' },
+      { status: 'Ingresado', date: '2024-12-26T09:00:00', note: 'Cliente viene por recomendación' },
       { status: 'En diagnóstico', date: '2024-12-26T09:30:00' },
     ]
   },
@@ -123,38 +123,38 @@ const MOCK_REPAIRS: Repair[] = [
     id: '4',
     ticketId: 'REP-2024-0844',
     client: { name: 'Ana Martínez', phone: '+54 9 11 5678-9012' },
-    device: { type: 'ipad', model: 'iPad Air 4', serial: 'DMPXXXXXXXX' },
-    issue: 'Pantalla con líneas verticales',
-    diagnosis: 'Flex de display dañado. Reparación posible sin cambio de pantalla.',
+    device: { type: 'monitor', model: 'Samsung Odyssey G5 27"', serial: 'HTXXXXXXXX' },
+    issue: 'Líneas verticales en pantalla',
+    diagnosis: 'Panel con falla. Costo de reemplazo supera valor del equipo. Se recomienda no reparar.',
     status: 'presupuestado',
     paymentStatus: 'pendiente',
-    budget: 45000,
+    budget: 180000,
     createdAt: '2024-12-25T11:00:00',
     updatedAt: '2024-12-26T10:00:00',
     timeline: [
       { status: 'Ingresado', date: '2024-12-25T11:00:00' },
       { status: 'En diagnóstico', date: '2024-12-25T12:00:00' },
-      { status: 'Presupuesto enviado', date: '2024-12-26T10:00:00', note: 'Esperando aprobación' },
+      { status: 'Presupuesto enviado', date: '2024-12-26T10:00:00', note: 'Esperando decisión del cliente' },
     ]
   },
   {
     id: '5',
     ticketId: 'REP-2024-0843',
     client: { name: 'Roberto Sánchez', phone: '+54 9 11 6789-0123' },
-    device: { type: 'watch', model: 'Apple Watch Series 8' },
-    issue: 'Pantalla despegada',
+    device: { type: 'componente', model: 'RTX 3070 EVGA FTW3' },
+    issue: 'Artifacting en juegos - posible falla de GPU',
     status: 'entregado',
     paymentStatus: 'pagado',
-    budget: 35000,
-    finalCost: 35000,
+    budget: 45000,
+    finalCost: 45000,
     createdAt: '2024-12-20T14:00:00',
     updatedAt: '2024-12-24T16:00:00',
-    technician: 'Matías',
+    technician: 'Carlos',
     timeline: [
       { status: 'Ingresado', date: '2024-12-20T14:00:00' },
       { status: 'En diagnóstico', date: '2024-12-20T15:00:00' },
       { status: 'Presupuesto aprobado', date: '2024-12-20T17:00:00' },
-      { status: 'En reparación', date: '2024-12-21T10:00:00' },
+      { status: 'En reparación', date: '2024-12-21T10:00:00', note: 'Reballing GPU' },
       { status: 'Listo para retiro', date: '2024-12-23T11:00:00' },
       { status: 'Entregado', date: '2024-12-24T16:00:00', note: 'Pago en efectivo' },
     ]
@@ -163,14 +163,14 @@ const MOCK_REPAIRS: Repair[] = [
     id: '6',
     ticketId: 'REP-2024-0842',
     client: { name: 'Laura Fernández', phone: '+54 9 11 7890-1234' },
-    device: { type: 'airpods', model: 'AirPods Pro 2' },
-    issue: 'Auricular izquierdo sin sonido',
+    device: { type: 'impresora', model: 'HP LaserJet Pro M404dn' },
+    issue: 'Atasco de papel constante',
     status: 'cancelado',
     paymentStatus: 'pendiente',
-    budget: 25000,
+    budget: 35000,
     createdAt: '2024-12-19T10:00:00',
     updatedAt: '2024-12-21T14:00:00',
-    notes: 'Cliente decidió no reparar - costo mayor al esperado',
+    notes: 'Cliente decidió comprar impresora nueva - costo de reparación alto',
     timeline: [
       { status: 'Ingresado', date: '2024-12-19T10:00:00' },
       { status: 'En diagnóstico', date: '2024-12-19T11:00:00' },
@@ -181,11 +181,11 @@ const MOCK_REPAIRS: Repair[] = [
 ];
 
 const deviceIcons: Record<DeviceType, React.ReactNode> = {
-  iphone: <Smartphone size={20} />,
-  macbook: <Laptop size={20} />,
-  ipad: <Tablet size={20} />,
-  watch: <Watch size={20} />,
-  airpods: <Headphones size={20} />,
+  pc: <Cpu size={20} />,
+  notebook: <Laptop size={20} />,
+  monitor: <Monitor size={20} />,
+  componente: <HardDrive size={20} />,
+  impresora: <Printer size={20} />,
 };
 
 const statusConfig: Record<RepairStatus, { label: string; color: string; bgColor: string; icon: React.ReactNode }> = {
@@ -418,7 +418,7 @@ export const ServicioTecnicoView: React.FC = () => {
               <div className="bg-gray-50 rounded-xl p-4">
                 <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   {deviceIcons[selectedRepair.device.type]}
-                  Dispositivo
+                  Equipo
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -427,7 +427,7 @@ export const ServicioTecnicoView: React.FC = () => {
                   </div>
                   {selectedRepair.device.serial && (
                     <div>
-                      <p className="text-xs text-gray-500">Serial/IMEI</p>
+                      <p className="text-xs text-gray-500">Serial/Service Tag</p>
                       <p className="text-sm font-medium text-gray-900 font-mono">{selectedRepair.device.serial}</p>
                     </div>
                   )}
