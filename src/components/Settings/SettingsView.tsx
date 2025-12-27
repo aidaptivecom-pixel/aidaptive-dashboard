@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Settings,
   User,
   Building2,
   Bell,
@@ -12,13 +11,9 @@ import {
   Link2,
   Camera,
   Mail,
-  Phone,
-  MapPin,
   Clock,
-  Check,
   ChevronRight,
   Smartphone,
-  Zap,
   Users,
   Key,
   LogOut,
@@ -28,7 +23,6 @@ import {
   AlertTriangle,
   CheckCircle2,
   XCircle,
-  ExternalLink,
   Copy,
   Eye,
   EyeOff,
