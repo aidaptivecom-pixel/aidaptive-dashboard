@@ -135,7 +135,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#F9FAFB] flex">
       <Sidebar currentPath={viewToPath[currentView]} />
-      <main className="flex-1 ml-64 p-8 max-w-7xl mx-auto w-full">
+      <main className="flex-1 ml-64 p-8">
         <Topbar />
         
         {currentView === 'dashboard' && (
