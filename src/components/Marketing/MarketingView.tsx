@@ -264,7 +264,7 @@ export const MarketingView: React.FC = () => {
   const [content, setContent] = useState<ContentPiece[]>(MOCK_CONTENT);
   const [activeTab, setActiveTab] = useState<'generate' | 'pending' | 'calendar' | 'published'>('generate');
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
-  const [promoText, setPromoText] = useState<string>('');
+  const [promptInstructions, setPromptInstructions] = useState<string>('');
   const [generationStatus, setGenerationStatus] = useState<GenerationStatus>('idle');
   const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
   const [generatedContent, setGeneratedContent] = useState<{
@@ -339,21 +339,17 @@ export const MarketingView: React.FC = () => {
     setIsEditingCaption(false);
     
     // Simulate AI generation
+    // In production: imagen de referencia + prompt del estilo + promptInstructions → API
     setTimeout(() => {
       const captions = SAMPLE_CAPTIONS[styleId] || SAMPLE_CAPTIONS['render'];
       const randomCaption = captions[Math.floor(Math.random() * captions.length)];
       
-      // Include promo text if provided
-      const finalCaption = promoText 
-        ? `${promoText.toUpperCase()} - ${randomCaption}`
-        : randomCaption;
-      
       setGeneratedContent({
         gradient: style.gradient,
-        caption: finalCaption,
+        caption: randomCaption,
         styleName: style.name,
       });
-      setEditedCaption(finalCaption);
+      setEditedCaption(randomCaption);
       setGenerationStatus('complete');
     }, 2000);
   };
@@ -392,15 +388,12 @@ export const MarketingView: React.FC = () => {
     setTimeout(() => {
       const captions = SAMPLE_CAPTIONS[selectedStyle] || SAMPLE_CAPTIONS['render'];
       const randomCaption = captions[Math.floor(Math.random() * captions.length)];
-      const finalCaption = promoText 
-        ? `${promoText.toUpperCase()} - ${randomCaption}`
-        : randomCaption;
       
       setGeneratedContent(prev => prev ? {
         ...prev,
-        caption: finalCaption,
+        caption: randomCaption,
       } : null);
-      setEditedCaption(finalCaption);
+      setEditedCaption(randomCaption);
       setGenerationStatus('complete');
     }, 1000);
   };
@@ -415,7 +408,7 @@ export const MarketingView: React.FC = () => {
 
   const handleClearUpload = () => {
     setUploadedImage(null);
-    setPromoText('');
+    setPromptInstructions('');
     setGeneratedContent(null);
     setGenerationStatus('idle');
     setSelectedStyle(null);
@@ -612,19 +605,20 @@ export const MarketingView: React.FC = () => {
                 )}
               </div>
               
-              {/* Step 2: Promo Text */}
+              {/* Step 2: Additional Instructions */}
               <div className={`mb-8 transition-opacity ${uploadedImage ? 'opacity-100' : 'opacity-40 pointer-events-none'}`}>
                 <div className="flex items-center gap-3 mb-4">
                   <div className={`w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold ${uploadedImage ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-400'}`}>2</div>
-                  <h3 className="font-semibold text-gray-900">Texto promocional <span className="text-gray-400 font-normal text-sm">(opcional)</span></h3>
+                  <h3 className="font-semibold text-gray-900">Instrucciones adicionales <span className="text-gray-400 font-normal text-sm">(opcional)</span></h3>
                 </div>
-                <input
-                  type="text"
-                  value={promoText}
-                  onChange={(e) => setPromoText(e.target.value)}
-                  placeholder="Ej: NAVIDAD, 25% OFF, BLACK FRIDAY..."
-                  className="w-full px-4 py-3 bg-gray-50 border-0 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 placeholder:text-gray-400"
+                <textarea
+                  value={promptInstructions}
+                  onChange={(e) => setPromptInstructions(e.target.value)}
+                  placeholder="Ej: Agrega nieve y referencias navideñas, incluí texto &quot;25% OFF&quot;, fondo con luces RGB..."
+                  rows={2}
+                  className="w-full px-4 py-3 bg-gray-50 border-0 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 placeholder:text-gray-400 resize-none"
                 />
+                <p className="text-xs text-gray-400 mt-2">Estas instrucciones se agregan al prompt de generación de imagen</p>
               </div>
               
               {/* Step 3: Style Selection - Grid */}
@@ -712,11 +706,6 @@ export const MarketingView: React.FC = () => {
                                 className="absolute inset-4 w-auto h-auto max-w-[65%] max-h-[65%] object-contain mx-auto my-auto rounded-lg shadow-2xl"
                               />
                             )}
-                            {promoText && (
-                              <div className="absolute bottom-3 left-3 right-3 bg-black/70 text-white text-center py-1.5 px-2 rounded-lg">
-                                <p className="font-bold text-xs">{promoText.toUpperCase()}</p>
-                              </div>
-                            )}
                           </>
                         )}
                       </div>
@@ -737,10 +726,15 @@ export const MarketingView: React.FC = () => {
                   </div>
                   
                   {/* Style badge */}
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-center justify-center gap-2">
                     <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
                       {generatedContent.styleName}
                     </span>
+                    {promptInstructions && (
+                      <span className="text-xs text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                        + instrucciones
+                      </span>
+                    )}
                   </div>
                   
                   {/* Caption */}
