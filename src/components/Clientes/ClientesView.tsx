@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { 
   Search,
   Filter,
-  Plus,
   MoreVertical,
   Mail,
   Phone,
@@ -10,9 +9,7 @@ import {
   Calendar,
   ShoppingBag,
   TrendingUp,
-  Star,
   ChevronDown,
-  Eye,
   Edit3,
   Trash2,
   Download,
@@ -20,7 +17,6 @@ import {
   Users,
   UserPlus,
   DollarSign,
-  Clock,
   Tag,
   Building2,
   User,
@@ -154,16 +150,13 @@ const MOCK_CUSTOMERS: Customer[] = [
     status: 'active',
     totalPurchases: 67,
     totalSpent: 45200000,
-    lastSpurchase: '2025-12-24',
+    lastPurchase: '2025-12-24',
     createdAt: '2022-11-20',
     tags: ['Mayorista', 'VIP', 'Crédito'],
     company: 'Distribuidora Norte SA',
     address: 'Parque Industrial, Nave 12',
   },
 ];
-
-// Fix typo in mock data
-MOCK_CUSTOMERS[7].lastPurchase = '2025-12-24';
 
 const typeConfig = {
   retail: { label: 'Minorista', color: 'bg-blue-100 text-blue-700', icon: <User size={12} /> },
