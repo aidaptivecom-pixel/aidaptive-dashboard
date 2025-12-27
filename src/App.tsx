@@ -88,6 +88,16 @@ const MOCK_CONVERSATIONS: Conversation[] = [
 
 type View = 'dashboard' | 'conversations' | 'appointments' | 'marketing' | 'repairs' | 'sales' | 'posventa';
 
+const viewToPath: Record<View, string> = {
+  dashboard: '/',
+  conversations: '/conversations',
+  appointments: '/appointments',
+  marketing: '/marketing',
+  repairs: '/repairs',
+  sales: '/sales',
+  posventa: '/posventa',
+};
+
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('dashboard');
 
@@ -124,7 +134,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] flex">
-      <Sidebar />
+      <Sidebar currentPath={viewToPath[currentView]} />
       <main className="flex-1 ml-64 p-8 max-w-7xl mx-auto w-full">
         <Topbar />
         

@@ -1,7 +1,19 @@
 import { NAVIGATION_ITEMS, BOTTOM_NAV } from '../../constants';
 import { Search, Apple } from 'lucide-react';
 
-export const Sidebar = () => {
+interface SidebarProps {
+  currentPath: string;
+}
+
+export const Sidebar = ({ currentPath }: SidebarProps) => {
+  // Normalize path for comparison
+  const isActive = (path: string) => {
+    if (path === '/' || path === '/dashboard') {
+      return currentPath === '/' || currentPath === '/dashboard' || currentPath === 'dashboard';
+    }
+    return currentPath === path || currentPath === path.replace('/', '');
+  };
+
   return (
     <aside className="w-64 border-r border-gray-100 bg-white h-screen fixed left-0 top-0 flex flex-col z-20">
       {/* Brand - InfoPartes */}
@@ -35,23 +47,26 @@ export const Sidebar = () => {
           <div key={group.group}>
             <p className="px-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">{group.group}</p>
             <ul className="space-y-1">
-              {group.items.map((item) => (
-                <li key={item.label}>
-                  <a 
-                    href={item.path}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                      item.active 
-                        ? 'bg-gray-900 text-white shadow-sm' 
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                    }`}
-                  >
-                    <span className={item.active ? 'text-white' : 'text-gray-400'}>
-                      {item.icon}
-                    </span>
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+              {group.items.map((item) => {
+                const active = isActive(item.path);
+                return (
+                  <li key={item.label}>
+                    <a 
+                      href={item.path}
+                      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                        active 
+                          ? 'bg-gray-900 text-white shadow-sm' 
+                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      }`}
+                    >
+                      <span className={active ? 'text-white' : 'text-gray-400'}>
+                        {item.icon}
+                      </span>
+                      {item.label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         ))}

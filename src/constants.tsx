@@ -27,7 +27,7 @@ export const DESIGN_TOKENS = {
 
 export const NAVIGATION_ITEMS = [
   { group: 'PRINCIPAL', items: [
-    { label: 'Dashboard', icon: <LayoutDashboard size={18} />, path: '/', active: true },
+    { label: 'Dashboard', icon: <LayoutDashboard size={18} />, path: '/' },
     { label: 'Conversaciones', icon: <MessageSquare size={18} />, path: '/conversations' },
     { label: 'Turnos', icon: <Calendar size={18} />, path: '/appointments' },
   ]},
