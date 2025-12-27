@@ -406,8 +406,8 @@ export const MarketingView: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Contenido</h1>
-          <p className="text-gray-500 mt-0.5">Generá contenido para redes con IA</p>
+          <h1 className="text-2xl font-bold text-gray-900">Contenido</h1>
+          <p className="text-sm text-gray-500 mt-1">Generá contenido para redes con IA</p>
         </div>
         <button className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors text-sm font-medium">
           <Calendar size={16} />
