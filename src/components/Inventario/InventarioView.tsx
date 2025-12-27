@@ -11,7 +11,7 @@ import {
   ChevronDown,
   MoreVertical,
   Edit,
-  Barcode,
+  ScanLine,
   Building2,
   Tag,
   DollarSign,
@@ -708,7 +708,7 @@ export const InventarioView: React.FC = () => {
                   </div>
                   {selectedProduct.codigo_barras && (
                     <div className="flex items-center gap-2 text-sm">
-                      <Barcode size={14} className="text-gray-400" />
+                      <ScanLine size={14} className="text-gray-400" />
                       <span className="text-gray-500">Código barras:</span>
                       <span className="text-gray-900 font-mono">{selectedProduct.codigo_barras}</span>
                     </div>
