@@ -23,7 +23,6 @@ import {
   Trash2,
   Plus,
   Save,
-  Upload,
   ChevronDown,
   ImageIcon
 } from 'lucide-react';
@@ -263,6 +262,7 @@ export const MarketingView: React.FC = () => {
   const [isEditingCaption, setIsEditingCaption] = useState(false);
   const [editedCaption, setEditedCaption] = useState('');
   const [isDragging, setIsDragging] = useState(false);
+  const [isRegenerating, setIsRegenerating] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const pendingContent = content.filter(c => c.status === 'pending');
@@ -340,15 +340,15 @@ export const MarketingView: React.FC = () => {
   };
 
   const handleRegenerate = () => {
-    if (!selectedStyle) return;
-    setGenerationStatus('generating');
+    if (!selectedStyle || isRegenerating) return;
+    setIsRegenerating(true);
     
     setTimeout(() => {
       const captions = SAMPLE_CAPTIONS[selectedStyle] || SAMPLE_CAPTIONS['minimal'];
       const randomCaption = captions[Math.floor(Math.random() * captions.length)];
       setGeneratedCaption(randomCaption);
       setEditedCaption(randomCaption);
-      setGenerationStatus('complete');
+      setIsRegenerating(false);
     }, 1000);
   };
 
@@ -366,6 +366,7 @@ export const MarketingView: React.FC = () => {
     setSelectedStyle(null);
     setHoveredStyle(null);
     setIsEditingCaption(false);
+    setIsRegenerating(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -716,10 +717,14 @@ export const MarketingView: React.FC = () => {
                     <div className="flex gap-2">
                       <button 
                         onClick={handleRegenerate}
-                        disabled={generationStatus === 'generating'}
-                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 text-gray-600 rounded-xl text-sm font-medium hover:bg-gray-100 transition-colors"
+                        disabled={isRegenerating}
+                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 text-gray-600 rounded-xl text-sm font-medium hover:bg-gray-100 transition-colors disabled:opacity-50"
                       >
-                        <RefreshCw size={14} />
+                        {isRegenerating ? (
+                          <Loader2 size={14} className="animate-spin" />
+                        ) : (
+                          <RefreshCw size={14} />
+                        )}
                         Regenerar
                       </button>
                       <button 
