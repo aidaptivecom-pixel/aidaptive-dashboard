@@ -15,6 +15,7 @@ import { VentasView } from './components/Ventas/VentasView';
 import { PosventaView } from './components/Posventa/PosventaView';
 import { PedidosView } from './components/Pedidos/PedidosView';
 import { InventarioView } from './components/Inventario/InventarioView';
+import { CotizacionesView } from './components/Cotizaciones/CotizacionesView';
 
 // Mock Data for Dashboard
 const MOCK_KPI_DATA = [
@@ -137,7 +138,7 @@ const App: React.FC = () => {
   );
 
   // Check if current view has its own title header (to avoid duplicate)
-  const viewsWithOwnHeader = ['inventory', 'sales', 'orders'];
+  const viewsWithOwnHeader = ['inventory', 'sales', 'orders', 'quotes'];
   const showPageTitle = !viewsWithOwnHeader.includes(currentView);
 
   return (
@@ -211,6 +212,7 @@ const App: React.FC = () => {
 
               {currentView === 'orders' && <PedidosView />}
               {currentView === 'inventory' && <InventarioView />}
+              {currentView === 'quotes' && <CotizacionesView />}
               {currentView === 'conversations' && <ConversationsView />}
               {currentView === 'appointments' && <TurnosView />}
               {currentView === 'marketing' && <MarketingView />}
@@ -219,7 +221,6 @@ const App: React.FC = () => {
               {currentView === 'posventa' && <PosventaView />}
               
               {/* Placeholder views */}
-              {currentView === 'quotes' && <PlaceholderView title="Cotizaciones" />}
               {currentView === 'analytics' && <PlaceholderView title="Analytics" />}
               {currentView === 'clients' && <PlaceholderView title="Clientes" />}
               {currentView === 'settings' && <PlaceholderView title="Ajustes" />}
