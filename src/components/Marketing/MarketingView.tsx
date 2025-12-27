@@ -23,16 +23,19 @@ import {
   Wand2,
   Trash2,
   Plus,
-  Palette,
-  Zap,
-  Minimize2,
-  Sun
+  ShoppingBag,
+  Smartphone,
+  Gamepad2,
+  FileText,
+  Film,
+  Type,
+  Save
 } from 'lucide-react';
 
 type ContentStatus = 'pending' | 'approved' | 'published' | 'rejected';
 type Platform = 'instagram' | 'facebook' | 'tiktok';
 type ContentType = 'feed' | 'story' | 'reel' | 'carousel';
-type GenerationStatus = 'idle' | 'uploading' | 'generating' | 'complete';
+type GenerationStatus = 'idle' | 'uploading' | 'generating_image' | 'generating_caption' | 'complete';
 
 interface StyleOption {
   id: string;
@@ -71,32 +74,39 @@ interface ContentPiece {
 
 const STYLE_OPTIONS: StyleOption[] = [
   { 
-    id: 'producto', 
-    name: 'Producto Destacado', 
-    description: 'Fondo limpio, producto centrado',
-    icon: <Sun size={20} />,
-    gradient: 'from-blue-500 to-cyan-400'
+    id: 'render', 
+    name: 'Render Producto', 
+    description: 'Fondo blanco limpio, producto centrado. Ideal para catálogo y fichas de producto',
+    icon: <ShoppingBag size={20} />,
+    gradient: 'from-gray-100 to-white'
+  },
+  { 
+    id: 'story', 
+    name: 'Story Promo', 
+    description: 'Formato vertical con banner de oferta. Para Navidad, Black Friday, Cyber',
+    icon: <Smartphone size={20} />,
+    gradient: 'from-red-500 to-orange-500'
   },
   { 
     id: 'gaming', 
-    name: 'Gaming RGB', 
-    description: 'Estilo gamer con luces y colores',
-    icon: <Zap size={20} />,
+    name: 'Gaming / Setup', 
+    description: 'Producto en contexto gamer con luces RGB y ambiente',
+    icon: <Gamepad2 size={20} />,
     gradient: 'from-purple-600 to-pink-500'
   },
   { 
-    id: 'minimal', 
-    name: 'Minimalista', 
-    description: 'Elegante, fondos oscuros',
-    icon: <Minimize2 size={20} />,
-    gradient: 'from-gray-700 to-gray-900'
+    id: 'specs', 
+    name: 'Specs Técnicas', 
+    description: 'Imagen con overlay de especificaciones destacadas del producto',
+    icon: <FileText size={20} />,
+    gradient: 'from-blue-600 to-cyan-500'
   },
   { 
-    id: 'promo', 
-    name: 'Promocional', 
-    description: 'Llamativo, ideal para ofertas',
-    icon: <Palette size={20} />,
-    gradient: 'from-orange-500 to-red-500'
+    id: 'reel', 
+    name: 'Portada Reel', 
+    description: 'Thumbnail llamativo con texto grande. Para videos en IG/TikTok',
+    icon: <Film size={20} />,
+    gradient: 'from-violet-600 to-fuchsia-500'
   },
 ];
 
@@ -112,8 +122,8 @@ const MOCK_CONTENT: ContentPiece[] = [
     type: 'feed',
     platforms: ['instagram', 'facebook'],
     status: 'pending',
-    caption: '🚀 ¡La RTX 4070 SUPER ya está en stock!\n\n⚡ 12GB GDDR6X\n🎮 Ray Tracing de última generación\n💰 $890.000\n🚚 Envíos a todo el país\n\n¡Consultanos por WhatsApp!',
-    hashtags: ['#RTX4070', '#Gaming', '#PCGamer', '#NVIDIA', '#BuenosAires'],
+    caption: '¡La RTX 4070 SUPER ya está en stock! 12GB GDDR6X con Ray Tracing de última generación. Envíos a todo el país.',
+    hashtags: ['#RTX4070', '#Gaming', '#PCGamer'],
     cta: 'Consultar por WhatsApp',
     scheduledDate: '2025-12-27',
     scheduledTime: '10:00',
@@ -128,16 +138,16 @@ const MOCK_CONTENT: ContentPiece[] = [
       price: 185000,
       image: '💾'
     },
-    type: 'reel',
+    type: 'story',
     platforms: ['instagram', 'tiktok'],
     status: 'pending',
-    caption: '⚡ Kit RAM DDR5 32GB (2x16GB)\n\n🔥 5600MHz CL36\n✅ Compatibilidad Intel y AMD\n💰 $185.000\n\n¡Llevá tu PC al siguiente nivel!',
-    hashtags: ['#RAM', '#DDR5', '#PCGamer', '#Hardware', '#TechArgentina'],
+    caption: 'Kit RAM DDR5 32GB (2x16GB) a 5600MHz. Compatibilidad total con Intel y AMD. Llevá tu PC al siguiente nivel.',
+    hashtags: ['#RAM', '#DDR5', '#PCGamer'],
     cta: 'Ver disponibilidad',
     scheduledDate: '2025-12-28',
     scheduledTime: '14:00',
-    selectedStyle: 'producto',
-    gradient: 'from-blue-500 to-cyan-400'
+    selectedStyle: 'render',
+    gradient: 'from-gray-100 to-white'
   },
   {
     id: '3',
@@ -150,13 +160,13 @@ const MOCK_CONTENT: ContentPiece[] = [
     type: 'story',
     platforms: ['instagram', 'facebook'],
     status: 'approved',
-    caption: '🖥️ Monitor LG UltraGear 27"\n\n⚡ 165Hz IPS\n🎨 99% sRGB\n📦 Stock disponible\n🚚 Envíos a todo el país',
-    hashtags: ['#Monitor', '#Gaming', '#LG', '#UltraGear'],
+    caption: 'Monitor LG UltraGear 27" con 165Hz IPS y 99% sRGB. Stock disponible con envíos a todo el país.',
+    hashtags: ['#Monitor', '#Gaming', '#LG'],
     cta: 'Ver en tienda',
     scheduledDate: '2025-12-27',
     scheduledTime: '18:00',
-    selectedStyle: 'minimal',
-    gradient: 'from-gray-700 to-gray-900'
+    selectedStyle: 'specs',
+    gradient: 'from-blue-600 to-cyan-500'
   },
   {
     id: '4',
@@ -169,13 +179,13 @@ const MOCK_CONTENT: ContentPiece[] = [
     type: 'carousel',
     platforms: ['instagram'],
     status: 'published',
-    caption: '🔥 PC GAMER PRO - Lista para jugar\n\n✅ RTX 4070 Ti\n✅ Intel i7-14700K\n✅ 32GB DDR5\n✅ 1TB NVMe\n\n📍 Retiro por local o envío\n📱 Consultanos por WhatsApp',
-    hashtags: ['#PCGamer', '#Gaming', '#RTX4070Ti', '#Intel', '#Armado'],
+    caption: 'PC GAMER PRO lista para jugar. RTX 4070 Ti, Intel i7-14700K, 32GB DDR5 y 1TB NVMe. Retiro por local o envío.',
+    hashtags: ['#PCGamer', '#Gaming', '#RTX4070Ti'],
     cta: 'Solicitar cotización',
     scheduledDate: '2025-12-26',
     scheduledTime: '12:00',
-    selectedStyle: 'promo',
-    gradient: 'from-orange-500 to-red-500',
+    selectedStyle: 'story',
+    gradient: 'from-red-500 to-orange-500',
     metrics: {
       reach: 3850,
       engagement: 9.4,
@@ -216,17 +226,49 @@ const typeLabels = {
   carousel: 'Carrusel',
 };
 
+// Sample captions for different styles
+const SAMPLE_CAPTIONS: Record<string, string[]> = {
+  render: [
+    'Disponible en stock. Calidad premium garantizada. Envíos a todo el país.',
+    'Nuevo ingreso. Consultá precio y disponibilidad por WhatsApp.',
+    'Stock limitado. Aprovechá el mejor precio del mercado.',
+  ],
+  story: [
+    '¡OFERTA ESPECIAL! Solo por tiempo limitado. No te lo pierdas.',
+    '🔥 PROMO NAVIDAD 🔥 Descuentos increíbles en toda la tienda.',
+    '⚡ BLACK FRIDAY ⚡ Los mejores precios del año están acá.',
+  ],
+  gaming: [
+    'Llevá tu setup al siguiente nivel. Rendimiento extremo para gamers exigentes.',
+    'RGB + Potencia. Todo lo que necesitás para dominar en cada partida.',
+    'El upgrade que tu PC estaba esperando. Performance sin límites.',
+  ],
+  specs: [
+    'Especificaciones de alto nivel. Rendimiento comprobado en benchmarks.',
+    'Características técnicas que marcan la diferencia. Calidad profesional.',
+    'Specs que hablan por sí solas. Tecnología de última generación.',
+  ],
+  reel: [
+    '¿Ya viste esto? El producto que todos están buscando.',
+    'POV: Cuando llega tu nuevo hardware 📦',
+    'Unboxing del producto más pedido de la semana.',
+  ],
+};
+
 export const MarketingView: React.FC = () => {
   const [content, setContent] = useState<ContentPiece[]>(MOCK_CONTENT);
   const [activeTab, setActiveTab] = useState<'generate' | 'pending' | 'calendar' | 'published'>('generate');
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [promoText, setPromoText] = useState<string>('');
   const [generationStatus, setGenerationStatus] = useState<GenerationStatus>('idle');
   const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
   const [generatedContent, setGeneratedContent] = useState<{
     gradient: string;
     caption: string;
-    hashtags: string[];
+    styleName: string;
   } | null>(null);
+  const [isEditingCaption, setIsEditingCaption] = useState(false);
+  const [editedCaption, setEditedCaption] = useState('');
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -277,6 +319,7 @@ export const MarketingView: React.FC = () => {
         setGenerationStatus('idle');
         setSelectedStyle(null);
         setGeneratedContent(null);
+        setIsEditingCaption(false);
       }, 500);
     };
     reader.readAsDataURL(file);
@@ -287,24 +330,91 @@ export const MarketingView: React.FC = () => {
     if (!style) return;
     
     setSelectedStyle(styleId);
-    setGenerationStatus('generating');
+    setGenerationStatus('generating_image');
+    setIsEditingCaption(false);
     
-    // Simulate AI generation for this specific style
+    // Simulate AI generation
     setTimeout(() => {
+      const captions = SAMPLE_CAPTIONS[styleId] || SAMPLE_CAPTIONS['render'];
+      const randomCaption = captions[Math.floor(Math.random() * captions.length)];
+      
+      // Include promo text if provided
+      const finalCaption = promoText 
+        ? `${promoText.toUpperCase()} - ${randomCaption}`
+        : randomCaption;
+      
       setGeneratedContent({
         gradient: style.gradient,
-        caption: '🚀 ¡Nuevo producto en stock!\n\n⚡ Calidad premium\n💰 Mejor precio garantizado\n🚚 Envío a todo el país\n\n¡Consultanos por WhatsApp!',
-        hashtags: ['#TechArgentina', '#Gaming', '#PCGamer', '#Hardware', '#Ofertas'],
+        caption: finalCaption,
+        styleName: style.name,
       });
+      setEditedCaption(finalCaption);
       setGenerationStatus('complete');
     }, 2000);
   };
 
+  const handleRegenerateImage = () => {
+    if (!selectedStyle) return;
+    const style = STYLE_OPTIONS.find(s => s.id === selectedStyle);
+    if (!style) return;
+    
+    setGenerationStatus('generating_image');
+    
+    setTimeout(() => {
+      // Keep same caption, just "regenerate" the image (change gradient slightly for demo)
+      const gradients = [
+        'from-purple-600 to-pink-500',
+        'from-blue-600 to-cyan-500',
+        'from-red-500 to-orange-500',
+        'from-green-500 to-teal-500',
+        'from-violet-600 to-fuchsia-500',
+      ];
+      const newGradient = gradients[Math.floor(Math.random() * gradients.length)];
+      
+      setGeneratedContent(prev => prev ? {
+        ...prev,
+        gradient: newGradient,
+      } : null);
+      setGenerationStatus('complete');
+    }, 1500);
+  };
+
+  const handleRegenerateCaption = () => {
+    if (!selectedStyle) return;
+    
+    setGenerationStatus('generating_caption');
+    
+    setTimeout(() => {
+      const captions = SAMPLE_CAPTIONS[selectedStyle] || SAMPLE_CAPTIONS['render'];
+      const randomCaption = captions[Math.floor(Math.random() * captions.length)];
+      const finalCaption = promoText 
+        ? `${promoText.toUpperCase()} - ${randomCaption}`
+        : randomCaption;
+      
+      setGeneratedContent(prev => prev ? {
+        ...prev,
+        caption: finalCaption,
+      } : null);
+      setEditedCaption(finalCaption);
+      setGenerationStatus('complete');
+    }, 1000);
+  };
+
+  const handleSaveCaption = () => {
+    setGeneratedContent(prev => prev ? {
+      ...prev,
+      caption: editedCaption,
+    } : null);
+    setIsEditingCaption(false);
+  };
+
   const handleClearUpload = () => {
     setUploadedImage(null);
+    setPromoText('');
     setGeneratedContent(null);
     setGenerationStatus('idle');
     setSelectedStyle(null);
+    setIsEditingCaption(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -321,15 +431,15 @@ export const MarketingView: React.FC = () => {
         price: 100000,
         image: '📦'
       },
-      type: 'feed',
+      type: selectedStyle === 'story' ? 'story' : selectedStyle === 'reel' ? 'reel' : 'feed',
       platforms: ['instagram', 'facebook'],
       status: 'approved',
       caption: generatedContent.caption,
-      hashtags: generatedContent.hashtags,
+      hashtags: [],
       cta: 'Consultar por WhatsApp',
       scheduledDate: new Date().toISOString().split('T')[0],
       scheduledTime: '10:00',
-      selectedStyle: selectedStyle || 'producto',
+      selectedStyle: selectedStyle || 'render',
       gradient: generatedContent.gradient
     };
     
@@ -430,7 +540,7 @@ export const MarketingView: React.FC = () => {
       {/* Main Content Area */}
       {activeTab === 'generate' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Left Column: Upload + Style Selection */}
+          {/* Left Column: Upload + Text + Style Selection */}
           <div className="space-y-4">
             {/* Upload Section */}
             <div className="bg-white rounded-xl border border-gray-100 p-6">
@@ -476,7 +586,7 @@ export const MarketingView: React.FC = () => {
               ) : (
                 <div className="flex gap-4">
                   {/* Square preview */}
-                  <div className="relative w-32 h-32 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0">
+                  <div className="relative w-24 h-24 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0">
                     <img 
                       src={uploadedImage} 
                       alt="Imagen subida" 
@@ -484,54 +594,73 @@ export const MarketingView: React.FC = () => {
                     />
                     <button
                       onClick={handleClearUpload}
-                      className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-lg"
+                      className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors shadow-lg"
                     >
-                      <Trash2 size={14} />
+                      <Trash2 size={12} />
                     </button>
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm text-gray-600 mb-2">Imagen cargada correctamente</p>
-                    <p className="text-xs text-gray-400">Seleccioná un estilo para generar el contenido</p>
+                    <p className="text-sm font-medium text-gray-900">Imagen cargada</p>
+                    <p className="text-xs text-gray-500 mt-1">Agregá un texto promocional y seleccioná el estilo</p>
                   </div>
                 </div>
               )}
             </div>
             
+            {/* Promo Text Input */}
+            {uploadedImage && (
+              <div className="bg-white rounded-xl border border-gray-100 p-6">
+                <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                  <Type size={20} />
+                  Texto Promocional
+                  <span className="text-xs font-normal text-gray-400">(opcional)</span>
+                </h3>
+                <input
+                  type="text"
+                  value={promoText}
+                  onChange={(e) => setPromoText(e.target.value)}
+                  placeholder="Ej: 25% OFF Navidad, Black Friday, Cyber Monday..."
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                />
+                <p className="text-xs text-gray-400 mt-2">Este texto aparecerá destacado en la imagen generada</p>
+              </div>
+            )}
+            
             {/* Style Selection */}
             {uploadedImage && (
               <div className="bg-white rounded-xl border border-gray-100 p-6">
                 <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <Palette size={20} />
-                  Elegí un Estilo
+                  <Sparkles size={20} />
+                  Seleccionar Estilo
                 </h3>
                 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-2">
                   {STYLE_OPTIONS.map((style) => (
                     <button
                       key={style.id}
                       onClick={() => handleGenerateStyle(style.id)}
-                      disabled={generationStatus === 'generating'}
-                      className={`relative p-4 rounded-xl border-2 text-left transition-all disabled:opacity-50 ${
+                      disabled={generationStatus === 'generating_image' || generationStatus === 'generating_caption'}
+                      className={`relative w-full p-4 rounded-xl border-2 text-left transition-all disabled:opacity-50 flex items-center gap-4 ${
                         selectedStyle === style.id
                           ? 'border-gray-900 bg-gray-50'
                           : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                       }`}
                     >
-                      <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${style.gradient} flex items-center justify-center text-white mb-3`}>
+                      <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${style.gradient} flex items-center justify-center text-white flex-shrink-0 ${style.id === 'render' ? 'text-gray-600' : ''}`}>
                         {style.icon}
                       </div>
-                      <p className="font-medium text-gray-900 text-sm">{style.name}</p>
-                      <p className="text-xs text-gray-500 mt-0.5">{style.description}</p>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-gray-900">{style.name}</p>
+                        <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{style.description}</p>
+                      </div>
                       
-                      {selectedStyle === style.id && generationStatus === 'generating' && (
-                        <div className="absolute inset-0 bg-white/80 rounded-xl flex items-center justify-center">
-                          <Loader2 size={24} className="text-gray-600 animate-spin" />
-                        </div>
+                      {selectedStyle === style.id && generationStatus === 'generating_image' && (
+                        <Loader2 size={20} className="text-gray-600 animate-spin flex-shrink-0" />
                       )}
                       
                       {selectedStyle === style.id && generationStatus === 'complete' && (
-                        <div className="absolute top-2 right-2 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
-                          <Check size={12} className="text-white" />
+                        <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                          <Check size={14} className="text-white" />
                         </div>
                       )}
                     </button>
@@ -539,19 +668,6 @@ export const MarketingView: React.FC = () => {
                 </div>
               </div>
             )}
-            
-            {/* Tips */}
-            <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl border border-purple-100 p-4">
-              <h4 className="font-medium text-purple-900 mb-2 flex items-center gap-2">
-                <Sparkles size={16} />
-                Tips para mejores resultados
-              </h4>
-              <ul className="text-sm text-purple-800 space-y-1">
-                <li>• Usá fotos de producto con fondo limpio</li>
-                <li>• Buena iluminación mejora los resultados</li>
-                <li>• Resolución mínima recomendada: 1080x1080</li>
-              </ul>
-            </div>
           </div>
 
           {/* Right Column: Preview & Actions */}
@@ -578,12 +694,23 @@ export const MarketingView: React.FC = () => {
                       
                       {/* Generated Image */}
                       <div className={`aspect-square bg-gradient-to-br ${generatedContent.gradient} flex items-center justify-center relative`}>
-                        {uploadedImage && (
-                          <img 
-                            src={uploadedImage} 
-                            alt="Preview" 
-                            className="absolute inset-4 w-auto h-auto max-w-[70%] max-h-[70%] object-contain mx-auto my-auto rounded-lg shadow-2xl"
-                          />
+                        {generationStatus === 'generating_image' ? (
+                          <Loader2 size={40} className="text-white/80 animate-spin" />
+                        ) : (
+                          <>
+                            {uploadedImage && (
+                              <img 
+                                src={uploadedImage} 
+                                alt="Preview" 
+                                className="absolute inset-4 w-auto h-auto max-w-[70%] max-h-[70%] object-contain mx-auto my-auto rounded-lg shadow-2xl"
+                              />
+                            )}
+                            {promoText && (
+                              <div className="absolute bottom-4 left-4 right-4 bg-black/70 text-white text-center py-2 px-3 rounded-lg">
+                                <p className="font-bold text-sm">{promoText.toUpperCase()}</p>
+                              </div>
+                            )}
+                          </>
                         )}
                       </div>
                       
@@ -594,62 +721,112 @@ export const MarketingView: React.FC = () => {
                           <MessageCircle size={22} className="text-gray-700" />
                           <Share2 size={22} className="text-gray-700" />
                         </div>
-                        <p className="text-xs text-gray-900 line-clamp-3">
+                        <p className="text-xs text-gray-900">
                           <span className="font-semibold">infopartes.st</span>{' '}
-                          {generatedContent.caption.split('\n')[0]}
-                        </p>
-                        <p className="text-[10px] text-blue-500 mt-1">
-                          {generatedContent.hashtags.slice(0, 3).join(' ')}
+                          {generatedContent.caption.substring(0, 80)}...
                         </p>
                       </div>
                     </div>
                   </div>
                   
-                  {/* Caption preview */}
-                  <div>
-                    <p className="text-xs text-gray-500 mb-1">Caption generado:</p>
-                    <p className="text-sm text-gray-700 bg-gray-50 p-3 rounded-lg whitespace-pre-wrap max-h-24 overflow-y-auto">
-                      {generatedContent.caption}
-                    </p>
+                  {/* Style badge */}
+                  <div className="flex items-center justify-center">
+                    <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                      Estilo: {generatedContent.styleName}
+                    </span>
                   </div>
                   
-                  {/* Hashtags */}
+                  {/* Caption */}
                   <div>
-                    <p className="text-xs text-gray-500 mb-1">Hashtags:</p>
-                    <div className="flex flex-wrap gap-1">
-                      {generatedContent.hashtags.map((tag) => (
-                        <span key={tag} className="text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded">
-                          {tag}
-                        </span>
-                      ))}
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-xs text-gray-500">Caption sugerido:</p>
+                      {!isEditingCaption && (
+                        <button 
+                          onClick={() => setIsEditingCaption(true)}
+                          className="text-xs text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                        >
+                          <Edit3 size={12} />
+                          Editar
+                        </button>
+                      )}
                     </div>
+                    
+                    {isEditingCaption ? (
+                      <div className="space-y-2">
+                        <textarea
+                          value={editedCaption}
+                          onChange={(e) => setEditedCaption(e.target.value)}
+                          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent resize-none"
+                          rows={4}
+                        />
+                        <div className="flex gap-2">
+                          <button 
+                            onClick={handleSaveCaption}
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-900 text-white rounded-lg text-xs font-medium hover:bg-gray-800"
+                          >
+                            <Save size={12} />
+                            Guardar
+                          </button>
+                          <button 
+                            onClick={() => {
+                              setIsEditingCaption(false);
+                              setEditedCaption(generatedContent.caption);
+                            }}
+                            className="px-3 py-1.5 text-gray-600 rounded-lg text-xs font-medium hover:bg-gray-100"
+                          >
+                            Cancelar
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="text-sm text-gray-700 bg-gray-50 p-3 rounded-lg">
+                        {generatedContent.caption}
+                      </p>
+                    )}
                   </div>
                   
                   {/* Action Buttons */}
                   <div className="pt-4 border-t border-gray-100 space-y-2">
                     <button 
                       onClick={handleApproveGenerated}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"
+                      disabled={isEditingCaption}
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors disabled:opacity-50"
                     >
                       <Check size={18} />
                       Aprobar y Programar
                     </button>
+                    
                     <div className="flex gap-2">
                       <button 
-                        onClick={() => selectedStyle && handleGenerateStyle(selectedStyle)}
-                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors"
+                        onClick={handleRegenerateImage}
+                        disabled={generationStatus === 'generating_image' || generationStatus === 'generating_caption' || isEditingCaption}
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors disabled:opacity-50"
                       >
-                        <RefreshCw size={16} />
-                        Regenerar
+                        {generationStatus === 'generating_image' ? (
+                          <Loader2 size={16} className="animate-spin" />
+                        ) : (
+                          <RefreshCw size={16} />
+                        )}
+                        <span className="text-sm">Regen Imagen</span>
                       </button>
-                      <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors">
-                        <Edit3 size={16} />
-                        Editar
+                      <button 
+                        onClick={handleRegenerateCaption}
+                        disabled={generationStatus === 'generating_image' || generationStatus === 'generating_caption' || isEditingCaption}
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors disabled:opacity-50"
+                      >
+                        {generationStatus === 'generating_caption' ? (
+                          <Loader2 size={16} className="animate-spin" />
+                        ) : (
+                          <RefreshCw size={16} />
+                        )}
+                        <span className="text-sm">Regen Caption</span>
                       </button>
                     </div>
+                    
                     <button 
                       onClick={handleClearUpload}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-red-600 rounded-lg font-medium hover:bg-red-50 transition-colors"
+                      disabled={isEditingCaption}
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-red-600 rounded-lg font-medium hover:bg-red-50 transition-colors disabled:opacity-50"
                     >
                       <X size={16} />
                       Descartar
@@ -716,7 +893,7 @@ export const MarketingView: React.FC = () => {
                       </div>
                       
                       <p className="text-sm text-gray-600 line-clamp-2 mb-2">
-                        {item.caption.split('\n')[0]}
+                        {item.caption}
                       </p>
                       
                       <div className="flex items-center gap-3 text-xs text-gray-500">
