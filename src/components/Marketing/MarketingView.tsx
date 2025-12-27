@@ -18,7 +18,6 @@ import {
   Sparkles,
   Play,
   MoreVertical,
-  Upload,
   Image,
   Loader2,
   CheckCircle2,
@@ -80,7 +79,7 @@ const MOCK_CONTENT: ContentPiece[] = [
     type: 'feed',
     platforms: ['instagram', 'facebook'],
     status: 'pending',
-    caption: '🚀 ¡La RTX 4070 SUPER ya está en stock!\n\n⚡ 12GB GDDR6X\n🎮 Ray Tracing de última generación\n💰 $890.000\n🚚 Envíos a todo el país\n\n¡Consultanos por WhatsApp!',
+    caption: '🚀 ¡La RTX 4070 SUPER ya está en stock!\\n\\n⚡ 12GB GDDR6X\\n🎮 Ray Tracing de última generación\\n💰 $890.000\\n🚚 Envíos a todo el país\\n\\n¡Consultanos por WhatsApp!',
     hashtags: ['#RTX4070', '#Gaming', '#PCGamer', '#NVIDIA', '#BuenosAires'],
     cta: 'Consultar por WhatsApp',
     scheduledDate: '2025-12-27',
@@ -104,7 +103,7 @@ const MOCK_CONTENT: ContentPiece[] = [
     type: 'reel',
     platforms: ['instagram', 'tiktok'],
     status: 'pending',
-    caption: '⚡ Kit RAM DDR5 32GB (2x16GB)\n\n🔥 5600MHz CL36\n✅ Compatibilidad Intel y AMD\n💰 $185.000\n\n¡Llevá tu PC al siguiente nivel!',
+    caption: '⚡ Kit RAM DDR5 32GB (2x16GB)\\n\\n🔥 5600MHz CL36\\n✅ Compatibilidad Intel y AMD\\n💰 $185.000\\n\\n¡Llevá tu PC al siguiente nivel!',
     hashtags: ['#RAM', '#DDR5', '#PCGamer', '#Hardware', '#TechArgentina'],
     cta: 'Ver disponibilidad',
     scheduledDate: '2025-12-28',
@@ -128,7 +127,7 @@ const MOCK_CONTENT: ContentPiece[] = [
     type: 'story',
     platforms: ['instagram', 'facebook'],
     status: 'approved',
-    caption: '🖥️ Monitor LG UltraGear 27"\n\n⚡ 165Hz IPS\n🎨 99% sRGB\n📦 Stock disponible\n🚚 Envíos a todo el país',
+    caption: '🖥️ Monitor LG UltraGear 27"\\n\\n⚡ 165Hz IPS\\n🎨 99% sRGB\\n📦 Stock disponible\\n🚚 Envíos a todo el país',
     hashtags: ['#Monitor', '#Gaming', '#LG', '#UltraGear'],
     cta: 'Ver en tienda',
     scheduledDate: '2025-12-27',
@@ -152,7 +151,7 @@ const MOCK_CONTENT: ContentPiece[] = [
     type: 'carousel',
     platforms: ['instagram'],
     status: 'published',
-    caption: '🔥 PC GAMER PRO - Lista para jugar\n\n✅ RTX 4070 Ti\n✅ Intel i7-14700K\n✅ 32GB DDR5\n✅ 1TB NVMe\n\n📍 Retiro por local o envío\n📱 Consultanos por WhatsApp',
+    caption: '🔥 PC GAMER PRO - Lista para jugar\\n\\n✅ RTX 4070 Ti\\n✅ Intel i7-14700K\\n✅ 32GB DDR5\\n✅ 1TB NVMe\\n\\n📍 Retiro por local o envío\\n📱 Consultanos por WhatsApp',
     hashtags: ['#PCGamer', '#Gaming', '#RTX4070Ti', '#Intel', '#Armado'],
     cta: 'Solicitar cotización',
     scheduledDate: '2025-12-26',
@@ -663,7 +662,7 @@ export const MarketingView: React.FC = () => {
                       </div>
                       
                       <p className="text-sm text-gray-600 line-clamp-2 mb-2">
-                        {item.caption.split('\n')[0]}
+                        {item.caption.split('\\n')[0]}
                       </p>
                       
                       <div className="flex items-center gap-3 text-xs text-gray-500">
@@ -795,7 +794,7 @@ export const MarketingView: React.FC = () => {
                         </div>
                         <p className="text-xs text-gray-900 line-clamp-3">
                           <span className="font-semibold">infopartes.st</span>{' '}
-                          {selectedContent.caption.split('\n')[0]}
+                          {selectedContent.caption.split('\\n')[0]}
                         </p>
                         <p className="text-[10px] text-blue-500 mt-1">
                           {selectedContent.hashtags.slice(0, 3).join(' ')}
