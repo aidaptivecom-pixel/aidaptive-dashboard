@@ -11,6 +11,7 @@ import { ConversationsView } from './components/Conversations/ConversationsView'
 import { TurnosView } from './components/Turnos/TurnosView';
 import { MarketingView } from './components/Marketing/MarketingView';
 import { AnalyticsView } from './components/Analytics/AnalyticsView';
+import { ClientesView } from './components/Clientes/ClientesView';
 import { ServicioTecnicoView } from './components/ServicioTecnico/ServicioTecnicoView';
 import { VentasView } from './components/Ventas/VentasView';
 import { PosventaView } from './components/Posventa/PosventaView';
@@ -139,7 +140,7 @@ const App: React.FC = () => {
   );
 
   // Check if current view has its own title header (to avoid duplicate)
-  const viewsWithOwnHeader = ['inventory', 'sales', 'orders', 'quotes', 'repairs', 'appointments', 'conversations', 'posventa', 'marketing', 'analytics'];
+  const viewsWithOwnHeader = ['inventory', 'sales', 'orders', 'quotes', 'repairs', 'appointments', 'conversations', 'posventa', 'marketing', 'analytics', 'clients'];
   const showPageTitle = !viewsWithOwnHeader.includes(currentView);
 
   return (
@@ -218,12 +219,12 @@ const App: React.FC = () => {
               {currentView === 'appointments' && <TurnosView />}
               {currentView === 'marketing' && <MarketingView />}
               {currentView === 'analytics' && <AnalyticsView />}
+              {currentView === 'clients' && <ClientesView />}
               {currentView === 'repairs' && <ServicioTecnicoView />}
               {currentView === 'sales' && <VentasView />}
               {currentView === 'posventa' && <PosventaView />}
               
               {/* Placeholder views */}
-              {currentView === 'clients' && <PlaceholderView title="Clientes" />}
               {currentView === 'settings' && <PlaceholderView title="Ajustes" />}
             </div>
           </main>
