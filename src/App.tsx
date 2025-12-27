@@ -18,6 +18,7 @@ import { PosventaView } from './components/Posventa/PosventaView';
 import { PedidosView } from './components/Pedidos/PedidosView';
 import { InventarioView } from './components/Inventario/InventarioView';
 import { CotizacionesView } from './components/Cotizaciones/CotizacionesView';
+import { SettingsView } from './components/Settings/SettingsView';
 
 // Mock Data for Dashboard
 const MOCK_KPI_DATA = [
@@ -60,7 +61,7 @@ const MOCK_INVENTORY_ALERTS = [
   { id: '2', product: 'Fuente Corsair 700W', sku: 'PSU-COR-700', stock: 0, minStock: 3 },
   { id: '3', product: 'RAM DDR5 16GB Kingston', sku: 'RAM-DDR5-16K', stock: 3, minStock: 10 },
   { id: '4', product: 'SSD NVMe 1TB Samsung', sku: 'SSD-SAM-1TB', stock: 4, minStock: 8 },
-  { id: '5', product: 'Monitor LG 27\" 144Hz', sku: 'MON-LG27-144', stock: 1, minStock: 3 },
+  { id: '5', product: 'Monitor LG 27" 144Hz', sku: 'MON-LG27-144', stock: 1, minStock: 3 },
 ];
 
 const MOCK_RESOLUTIONS = [
@@ -129,18 +130,8 @@ const App: React.FC = () => {
     return () => document.removeEventListener('click', handleClick);
   }, []);
 
-  // Placeholder component for views not yet implemented
-  const PlaceholderView = ({ title }: { title: string }) => (
-    <div className="flex items-center justify-center h-64 bg-white rounded-2xl border border-gray-200 border-dashed">
-      <div className="text-center">
-        <p className="text-gray-400 text-lg">Módulo {title}</p>
-        <p className="text-gray-300 text-sm mt-1">En desarrollo</p>
-      </div>
-    </div>
-  );
-
   // Check if current view has its own title header (to avoid duplicate)
-  const viewsWithOwnHeader = ['inventory', 'sales', 'orders', 'quotes', 'repairs', 'appointments', 'conversations', 'posventa', 'marketing', 'analytics', 'clients'];
+  const viewsWithOwnHeader = ['inventory', 'sales', 'orders', 'quotes', 'repairs', 'appointments', 'conversations', 'posventa', 'marketing', 'analytics', 'clients', 'settings'];
   const showPageTitle = !viewsWithOwnHeader.includes(currentView);
 
   return (
@@ -223,9 +214,7 @@ const App: React.FC = () => {
               {currentView === 'repairs' && <ServicioTecnicoView />}
               {currentView === 'sales' && <VentasView />}
               {currentView === 'posventa' && <PosventaView />}
-              
-              {/* Placeholder views */}
-              {currentView === 'settings' && <PlaceholderView title="Ajustes" />}
+              {currentView === 'settings' && <SettingsView />}
             </div>
           </main>
         </div>
