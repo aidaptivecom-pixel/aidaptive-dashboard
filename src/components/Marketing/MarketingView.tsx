@@ -29,7 +29,8 @@ import {
   FileText,
   Film,
   Type,
-  Save
+  Save,
+  Upload
 } from 'lucide-react';
 
 type ContentStatus = 'pending' | 'approved' | 'published' | 'rejected';
@@ -43,6 +44,7 @@ interface StyleOption {
   description: string;
   icon: React.ReactNode;
   gradient: string;
+  preview: string;
 }
 
 interface ContentPiece {
@@ -76,37 +78,42 @@ const STYLE_OPTIONS: StyleOption[] = [
   { 
     id: 'render', 
     name: 'Render Producto', 
-    description: 'Fondo blanco limpio, producto centrado. Ideal para catálogo y fichas de producto',
-    icon: <ShoppingBag size={20} />,
-    gradient: 'from-gray-100 to-white'
+    description: 'Fondo limpio, ideal para catálogo',
+    icon: <ShoppingBag size={18} />,
+    gradient: 'from-gray-100 to-white',
+    preview: '⬜'
   },
   { 
     id: 'story', 
     name: 'Story Promo', 
-    description: 'Formato vertical con banner de oferta. Para Navidad, Black Friday, Cyber',
-    icon: <Smartphone size={20} />,
-    gradient: 'from-red-500 to-orange-500'
+    description: 'Banners promocionales',
+    icon: <Smartphone size={18} />,
+    gradient: 'from-red-500 to-orange-500',
+    preview: '🔴'
   },
   { 
     id: 'gaming', 
     name: 'Gaming / Setup', 
-    description: 'Producto en contexto gamer con luces RGB y ambiente',
-    icon: <Gamepad2 size={20} />,
-    gradient: 'from-purple-600 to-pink-500'
+    description: 'Ambiente gamer con RGB',
+    icon: <Gamepad2 size={18} />,
+    gradient: 'from-purple-600 to-pink-500',
+    preview: '🟣'
   },
   { 
     id: 'specs', 
     name: 'Specs Técnicas', 
-    description: 'Imagen con overlay de especificaciones destacadas del producto',
-    icon: <FileText size={20} />,
-    gradient: 'from-blue-600 to-cyan-500'
+    description: 'Overlay con especificaciones',
+    icon: <FileText size={18} />,
+    gradient: 'from-blue-600 to-cyan-500',
+    preview: '🔵'
   },
   { 
     id: 'reel', 
     name: 'Portada Reel', 
-    description: 'Thumbnail llamativo con texto grande. Para videos en IG/TikTok',
-    icon: <Film size={20} />,
-    gradient: 'from-violet-600 to-fuchsia-500'
+    description: 'Thumbnail para videos',
+    icon: <Film size={18} />,
+    gradient: 'from-violet-600 to-fuchsia-500',
+    preview: '🟡'
   },
 ];
 
@@ -539,175 +546,177 @@ export const MarketingView: React.FC = () => {
 
       {/* Main Content Area */}
       {activeTab === 'generate' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Left Column: Upload + Text + Style Selection */}
-          <div className="space-y-4">
-            {/* Upload Section */}
-            <div className="bg-white rounded-xl border border-gray-100 p-6">
-              <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Image size={20} />
-                Imagen de Referencia
-              </h3>
-              
-              {!uploadedImage ? (
-                <div
-                  onDragOver={handleDragOver}
-                  onDragLeave={handleDragLeave}
-                  onDrop={handleDrop}
-                  onClick={() => fileInputRef.current?.click()}
-                  className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all ${
-                    isDragging 
-                      ? 'border-blue-500 bg-blue-50' 
-                      : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50'
-                  }`}
-                >
-                  {generationStatus === 'uploading' ? (
-                    <div className="flex flex-col items-center">
-                      <Loader2 size={40} className="text-blue-500 animate-spin mb-3" />
-                      <p className="text-gray-600 font-medium">Subiendo imagen...</p>
-                    </div>
-                  ) : (
-                    <>
-                      <div className="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <Plus size={28} className="text-gray-400" />
-                      </div>
-                      <p className="text-gray-700 font-medium mb-1">Arrastrá una imagen o hacé click</p>
-                      <p className="text-sm text-gray-500">PNG, JPG hasta 10MB</p>
-                    </>
-                  )}
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileSelect}
-                    className="hidden"
-                  />
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          {/* Left Column: Configuration - 3 cols */}
+          <div className="lg:col-span-3 space-y-6">
+            <div className="bg-white rounded-2xl border border-gray-100 p-6">
+              {/* Step 1: Upload */}
+              <div className="mb-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-7 h-7 rounded-full bg-gray-900 text-white flex items-center justify-center text-sm font-bold">1</div>
+                  <h3 className="font-semibold text-gray-900">Subir imagen del producto</h3>
                 </div>
-              ) : (
-                <div className="flex gap-4">
-                  {/* Square preview */}
-                  <div className="relative w-24 h-24 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0">
-                    <img 
-                      src={uploadedImage} 
-                      alt="Imagen subida" 
-                      className="w-full h-full object-cover"
+                
+                {!uploadedImage ? (
+                  <div
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                    onClick={() => fileInputRef.current?.click()}
+                    className={`relative border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-all ${
+                      isDragging 
+                        ? 'border-gray-900 bg-gray-50' 
+                        : 'border-gray-200 hover:border-gray-400 hover:bg-gray-50'
+                    }`}
+                  >
+                    {generationStatus === 'uploading' ? (
+                      <div className="flex flex-col items-center">
+                        <Loader2 size={36} className="text-gray-400 animate-spin mb-3" />
+                        <p className="text-gray-600 font-medium">Subiendo imagen...</p>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                          <Upload size={28} className="text-gray-400" />
+                        </div>
+                        <p className="text-gray-700 font-medium mb-1">Arrastrá una imagen o hacé click para subir</p>
+                        <p className="text-sm text-gray-400">PNG, JPG hasta 10MB</p>
+                      </>
+                    )}
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileSelect}
+                      className="hidden"
                     />
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
+                    <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-white border border-gray-200 flex-shrink-0">
+                      <img 
+                        src={uploadedImage} 
+                        alt="Imagen subida" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-gray-900">Imagen cargada</p>
+                      <p className="text-sm text-gray-500">Lista para generar</p>
+                    </div>
                     <button
                       onClick={handleClearUpload}
-                      className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors shadow-lg"
+                      className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                     >
-                      <Trash2 size={12} />
+                      <Trash2 size={18} />
                     </button>
                   </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-900">Imagen cargada</p>
-                    <p className="text-xs text-gray-500 mt-1">Agregá un texto promocional y seleccioná el estilo</p>
-                  </div>
+                )}
+              </div>
+              
+              {/* Step 2: Promo Text */}
+              <div className={`mb-8 transition-opacity ${uploadedImage ? 'opacity-100' : 'opacity-40 pointer-events-none'}`}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold ${uploadedImage ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-400'}`}>2</div>
+                  <h3 className="font-semibold text-gray-900">Texto promocional <span className="text-gray-400 font-normal text-sm">(opcional)</span></h3>
                 </div>
-              )}
-            </div>
-            
-            {/* Promo Text Input */}
-            {uploadedImage && (
-              <div className="bg-white rounded-xl border border-gray-100 p-6">
-                <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                  <Type size={20} />
-                  Texto Promocional
-                  <span className="text-xs font-normal text-gray-400">(opcional)</span>
-                </h3>
                 <input
                   type="text"
                   value={promoText}
                   onChange={(e) => setPromoText(e.target.value)}
-                  placeholder="Ej: 25% OFF Navidad, Black Friday, Cyber Monday..."
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                  placeholder="Ej: NAVIDAD, 25% OFF, BLACK FRIDAY..."
+                  className="w-full px-4 py-3 bg-gray-50 border-0 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 placeholder:text-gray-400"
                 />
-                <p className="text-xs text-gray-400 mt-2">Este texto aparecerá destacado en la imagen generada</p>
               </div>
-            )}
-            
-            {/* Style Selection */}
-            {uploadedImage && (
-              <div className="bg-white rounded-xl border border-gray-100 p-6">
-                <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <Sparkles size={20} />
-                  Seleccionar Estilo
-                </h3>
+              
+              {/* Step 3: Style Selection - Grid */}
+              <div className={`transition-opacity ${uploadedImage ? 'opacity-100' : 'opacity-40 pointer-events-none'}`}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold ${uploadedImage ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-400'}`}>3</div>
+                  <h3 className="font-semibold text-gray-900">Elegir estilo</h3>
+                </div>
                 
-                <div className="space-y-2">
-                  {STYLE_OPTIONS.map((style) => (
-                    <button
-                      key={style.id}
-                      onClick={() => handleGenerateStyle(style.id)}
-                      disabled={generationStatus === 'generating_image' || generationStatus === 'generating_caption'}
-                      className={`relative w-full p-4 rounded-xl border-2 text-left transition-all disabled:opacity-50 flex items-center gap-4 ${
-                        selectedStyle === style.id
-                          ? 'border-gray-900 bg-gray-50'
-                          : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
-                      }`}
-                    >
-                      <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${style.gradient} flex items-center justify-center text-white flex-shrink-0 ${style.id === 'render' ? 'text-gray-600' : ''}`}>
-                        {style.icon}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-gray-900">{style.name}</p>
-                        <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{style.description}</p>
-                      </div>
-                      
-                      {selectedStyle === style.id && generationStatus === 'generating_image' && (
-                        <Loader2 size={20} className="text-gray-600 animate-spin flex-shrink-0" />
-                      )}
-                      
-                      {selectedStyle === style.id && generationStatus === 'complete' && (
-                        <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                          <Check size={14} className="text-white" />
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {STYLE_OPTIONS.map((style) => {
+                    const isSelected = selectedStyle === style.id;
+                    const isLoading = isSelected && (generationStatus === 'generating_image' || generationStatus === 'generating_caption');
+                    const isComplete = isSelected && generationStatus === 'complete';
+                    
+                    return (
+                      <button
+                        key={style.id}
+                        onClick={() => handleGenerateStyle(style.id)}
+                        disabled={!uploadedImage || generationStatus === 'generating_image' || generationStatus === 'generating_caption'}
+                        className={`relative p-4 rounded-xl border-2 text-left transition-all disabled:cursor-not-allowed group ${
+                          isSelected
+                            ? 'border-gray-900 bg-gray-50'
+                            : 'border-gray-100 hover:border-gray-300 hover:bg-gray-50'
+                        }`}
+                      >
+                        {/* Style Preview */}
+                        <div className={`w-full aspect-[4/3] rounded-lg bg-gradient-to-br ${style.gradient} mb-3 flex items-center justify-center relative overflow-hidden ${style.id === 'render' ? 'border border-gray-200' : ''}`}>
+                          <div className="text-3xl opacity-60">📦</div>
+                          {isLoading && (
+                            <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                              <Loader2 size={24} className="text-white animate-spin" />
+                            </div>
+                          )}
+                          {isComplete && (
+                            <div className="absolute top-2 right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                              <Check size={14} className="text-white" />
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </button>
-                  ))}
+                        
+                        {/* Style Info */}
+                        <p className="font-medium text-gray-900 text-sm mb-0.5">{style.name}</p>
+                        <p className="text-xs text-gray-500 line-clamp-1">{style.description}</p>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
-            )}
+            </div>
           </div>
 
-          {/* Right Column: Preview & Actions */}
-          <div className="space-y-4">
-            <div className="bg-white rounded-xl border border-gray-100 p-6">
+          {/* Right Column: Preview - 2 cols */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-2xl border border-gray-100 p-6 sticky top-6">
               <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Eye size={20} />
+                <Eye size={18} />
                 Vista Previa
               </h3>
               
               {generatedContent ? (
                 <div className="space-y-4">
-                  {/* Phone mockup */}
-                  <div className="bg-gray-900 rounded-3xl p-2 max-w-[300px] mx-auto">
-                    <div className="bg-white rounded-2xl overflow-hidden">
+                  {/* Phone mockup - smaller */}
+                  <div className="bg-gray-900 rounded-[28px] p-2 max-w-[280px] mx-auto">
+                    <div className="bg-white rounded-[22px] overflow-hidden">
                       {/* Header */}
-                      <div className="flex items-center justify-between p-3 border-b">
+                      <div className="flex items-center justify-between px-3 py-2 border-b">
                         <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full"></div>
-                          <span className="text-xs font-semibold">infopartes.st</span>
+                          <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full"></div>
+                          <span className="text-[11px] font-semibold">infopartes.st</span>
                         </div>
-                        <MoreVertical size={16} className="text-gray-400" />
+                        <MoreVertical size={14} className="text-gray-400" />
                       </div>
                       
                       {/* Generated Image */}
                       <div className={`aspect-square bg-gradient-to-br ${generatedContent.gradient} flex items-center justify-center relative`}>
                         {generationStatus === 'generating_image' ? (
-                          <Loader2 size={40} className="text-white/80 animate-spin" />
+                          <Loader2 size={32} className="text-white/80 animate-spin" />
                         ) : (
                           <>
                             {uploadedImage && (
                               <img 
                                 src={uploadedImage} 
                                 alt="Preview" 
-                                className="absolute inset-4 w-auto h-auto max-w-[70%] max-h-[70%] object-contain mx-auto my-auto rounded-lg shadow-2xl"
+                                className="absolute inset-4 w-auto h-auto max-w-[65%] max-h-[65%] object-contain mx-auto my-auto rounded-lg shadow-2xl"
                               />
                             )}
                             {promoText && (
-                              <div className="absolute bottom-4 left-4 right-4 bg-black/70 text-white text-center py-2 px-3 rounded-lg">
-                                <p className="font-bold text-sm">{promoText.toUpperCase()}</p>
+                              <div className="absolute bottom-3 left-3 right-3 bg-black/70 text-white text-center py-1.5 px-2 rounded-lg">
+                                <p className="font-bold text-xs">{promoText.toUpperCase()}</p>
                               </div>
                             )}
                           </>
@@ -716,14 +725,14 @@ export const MarketingView: React.FC = () => {
                       
                       {/* Actions */}
                       <div className="p-3">
-                        <div className="flex items-center gap-4 mb-2">
-                          <Heart size={22} className="text-gray-700" />
-                          <MessageCircle size={22} className="text-gray-700" />
-                          <Share2 size={22} className="text-gray-700" />
+                        <div className="flex items-center gap-3 mb-2">
+                          <Heart size={18} className="text-gray-700" />
+                          <MessageCircle size={18} className="text-gray-700" />
+                          <Share2 size={18} className="text-gray-700" />
                         </div>
-                        <p className="text-xs text-gray-900">
+                        <p className="text-[11px] text-gray-900 line-clamp-2">
                           <span className="font-semibold">infopartes.st</span>{' '}
-                          {generatedContent.caption.substring(0, 80)}...
+                          {generatedContent.caption.substring(0, 60)}...
                         </p>
                       </div>
                     </div>
@@ -732,18 +741,18 @@ export const MarketingView: React.FC = () => {
                   {/* Style badge */}
                   <div className="flex items-center justify-center">
                     <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-                      Estilo: {generatedContent.styleName}
+                      {generatedContent.styleName}
                     </span>
                   </div>
                   
                   {/* Caption */}
-                  <div>
+                  <div className="bg-gray-50 rounded-xl p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <p className="text-xs text-gray-500">Caption sugerido:</p>
+                      <p className="text-xs font-medium text-gray-500">Caption</p>
                       {!isEditingCaption && (
                         <button 
                           onClick={() => setIsEditingCaption(true)}
-                          className="text-xs text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                          className="text-xs text-gray-500 hover:text-gray-900 flex items-center gap-1"
                         >
                           <Edit3 size={12} />
                           Editar
@@ -756,8 +765,8 @@ export const MarketingView: React.FC = () => {
                         <textarea
                           value={editedCaption}
                           onChange={(e) => setEditedCaption(e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent resize-none"
-                          rows={4}
+                          className="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent resize-none"
+                          rows={3}
                         />
                         <div className="flex gap-2">
                           <button 
@@ -779,18 +788,16 @@ export const MarketingView: React.FC = () => {
                         </div>
                       </div>
                     ) : (
-                      <p className="text-sm text-gray-700 bg-gray-50 p-3 rounded-lg">
-                        {generatedContent.caption}
-                      </p>
+                      <p className="text-sm text-gray-700">{generatedContent.caption}</p>
                     )}
                   </div>
                   
                   {/* Action Buttons */}
-                  <div className="pt-4 border-t border-gray-100 space-y-2">
+                  <div className="space-y-2 pt-2">
                     <button 
                       onClick={handleApproveGenerated}
                       disabled={isEditingCaption}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors disabled:opacity-50"
+                      className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-green-600 text-white rounded-xl font-medium hover:bg-green-700 transition-colors disabled:opacity-50"
                     >
                       <Check size={18} />
                       Aprobar y Programar
@@ -800,33 +807,33 @@ export const MarketingView: React.FC = () => {
                       <button 
                         onClick={handleRegenerateImage}
                         disabled={generationStatus === 'generating_image' || generationStatus === 'generating_caption' || isEditingCaption}
-                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors disabled:opacity-50"
+                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 bg-gray-100 text-gray-700 rounded-xl text-sm font-medium hover:bg-gray-200 transition-colors disabled:opacity-50"
                       >
                         {generationStatus === 'generating_image' ? (
-                          <Loader2 size={16} className="animate-spin" />
+                          <Loader2 size={14} className="animate-spin" />
                         ) : (
-                          <RefreshCw size={16} />
+                          <RefreshCw size={14} />
                         )}
-                        <span className="text-sm">Regen Imagen</span>
+                        Imagen
                       </button>
                       <button 
                         onClick={handleRegenerateCaption}
                         disabled={generationStatus === 'generating_image' || generationStatus === 'generating_caption' || isEditingCaption}
-                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors disabled:opacity-50"
+                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 bg-gray-100 text-gray-700 rounded-xl text-sm font-medium hover:bg-gray-200 transition-colors disabled:opacity-50"
                       >
                         {generationStatus === 'generating_caption' ? (
-                          <Loader2 size={16} className="animate-spin" />
+                          <Loader2 size={14} className="animate-spin" />
                         ) : (
-                          <RefreshCw size={16} />
+                          <RefreshCw size={14} />
                         )}
-                        <span className="text-sm">Regen Caption</span>
+                        Caption
                       </button>
                     </div>
                     
                     <button 
                       onClick={handleClearUpload}
                       disabled={isEditingCaption}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-red-600 rounded-lg font-medium hover:bg-red-50 transition-colors disabled:opacity-50"
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-red-600 rounded-xl text-sm font-medium hover:bg-red-50 transition-colors disabled:opacity-50"
                     >
                       <X size={16} />
                       Descartar
@@ -834,15 +841,17 @@ export const MarketingView: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-col items-center justify-center py-16 text-center">
-                  <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                    <Image size={32} className="text-gray-400" />
+                <div className="flex flex-col items-center justify-center py-20 text-center">
+                  <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-4">
+                    <Sparkles size={28} className="text-gray-300" />
                   </div>
-                  <p className="text-gray-500 mb-1">Sin vista previa</p>
+                  <p className="text-gray-500 font-medium mb-1">
+                    {!uploadedImage ? 'Subí una imagen' : 'Elegí un estilo'}
+                  </p>
                   <p className="text-sm text-gray-400">
                     {!uploadedImage 
-                      ? 'Subí una imagen para comenzar' 
-                      : 'Seleccioná un estilo para generar'
+                      ? 'para comenzar a generar' 
+                      : 'para ver la vista previa'
                     }
                   </p>
                 </div>
