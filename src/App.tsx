@@ -13,6 +13,7 @@ import { MarketingView } from './components/Marketing/MarketingView';
 import { ServicioTecnicoView } from './components/ServicioTecnico/ServicioTecnicoView';
 import { VentasView } from './components/Ventas/VentasView';
 import { PosventaView } from './components/Posventa/PosventaView';
+import { PedidosView } from './components/Pedidos/PedidosView';
 
 // Mock Data for Dashboard
 const MOCK_KPI_DATA = [
@@ -201,6 +202,7 @@ const App: React.FC = () => {
                 </div>
               )}
 
+              {currentView === 'orders' && <PedidosView />}
               {currentView === 'conversations' && <ConversationsView />}
               {currentView === 'appointments' && <TurnosView />}
               {currentView === 'marketing' && <MarketingView />}
@@ -209,7 +211,6 @@ const App: React.FC = () => {
               {currentView === 'posventa' && <PosventaView />}
               
               {/* Placeholder views */}
-              {currentView === 'orders' && <PlaceholderView title="Pedidos" />}
               {currentView === 'inventory' && <PlaceholderView title="Inventario" />}
               {currentView === 'quotes' && <PlaceholderView title="Cotizaciones" />}
               {currentView === 'analytics' && <PlaceholderView title="Analytics" />}
