@@ -1,23 +1,18 @@
 import React, { useState } from 'react';
 import { 
   TrendingUp, 
-  TrendingDown,
   Users,
   Eye,
   Heart,
   MessageCircle,
-  Share2,
   ShoppingCart,
   DollarSign,
-  Calendar,
   ChevronDown,
   Instagram,
   Facebook,
   Play,
   ArrowUpRight,
   ArrowDownRight,
-  BarChart3,
-  PieChart,
   Target,
   Zap,
   Clock,
@@ -244,13 +239,6 @@ const colorClasses = {
 export const AnalyticsView: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('30d');
   const [platform, setPlatform] = useState<Platform>('all');
-
-  const formatCurrency = (value: number) => {
-    if (value >= 1000000) {
-      return `$${(value / 1000000).toFixed(1)}M`;
-    }
-    return `$${value.toLocaleString('es-AR')}`;
-  };
 
   const formatNumber = (value: number) => {
     if (value >= 1000) {
