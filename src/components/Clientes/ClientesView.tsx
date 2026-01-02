@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Search,
-  MoreVertical,
   Mail,
   Phone,
   MessageCircle,
   Calendar,
   Wrench,
   ChevronDown,
-  Edit3,
   Download,
   Users,
-  UserPlus,
   User,
   X,
   RefreshCw,
@@ -70,7 +67,6 @@ export const ClientesView: React.FC = () => {
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido');
-      // Cargar datos de prueba si falla la API
       setCustomers([]);
     } finally {
       setLoading(false);
